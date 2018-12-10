@@ -1,6 +1,13 @@
-import random
-import math
-import numpy as np
+"Creates torus maps with various # of districts for NC, Pennsylvania, and Illinois."\
+"Performs simulation on a created map by moving where the bottom right corner is after each run"
+
+__author__ = "Jay Patel"
+
+"Creates mock NC map that we designed." \
+"Each precinct (index) has three values." \
+"First value: 0 for rural, 1 for suburban, and 2" \
+"for urban. The second value is row number and the" \
+"third value is column number"
 
 def makeNCMap():
     statemap = []
@@ -413,6 +420,12 @@ def makeNCMap():
         statemap[i] = replace
     return statemap
 
+"Creates mock Pennsylvania map that we designed."
+"Each precinct (index) has three values." \
+"First value: 0 for rural, 1 for suburban, and 2" \
+"for urban. The second value is row number and the" \
+"third value is column number"
+
 def makePennMap():
     statemap = []
     statemap.append((0, 0, 0))
@@ -696,6 +709,12 @@ def makePennMap():
         statemap[i] = replace
     return statemap
 
+"Creates mock Illinois map that we designed."
+"Each precinct (index) has three values." \
+"First value: 0 for rural, 1 for suburban, and 2" \
+"for urban. The second value is row number and the" \
+"third value is column number"
+
 def makeIllMap():
     statemap = []
     for i in range(12):
@@ -728,11 +747,11 @@ def makeIllMap():
         statemap.append([0, k, 6])
         statemap.append([0, k, 7])
 
-
-
     return statemap
+"Splits a given torus map into a certain number of districts." \
+"For some numbers, the map can be split vertically or horizontally"
 # make dir 0 for vertical splits and 1 for horizontal splits
-def splitIntoDistricts(statemap, distNum, dir, vert, hor):
+def splitIntoDistricts(statemap, distNum, dir, cols, rows):
     districts = []
     if distNum == 1:
         toAdd1 = []
@@ -742,7 +761,7 @@ def splitIntoDistricts(statemap, distNum, dir, vert, hor):
     if distNum == 2 and dir == 0:
         toAdd1 = []
         toAdd2 = []
-        split = vert/2
+        split = cols/2
         for item in statemap:
             if item[2] < split:
                 toAdd1.append(item)
@@ -753,7 +772,7 @@ def splitIntoDistricts(statemap, distNum, dir, vert, hor):
     if distNum == 2 and dir == 1:
         toAdd1 = []
         toAdd2 = []
-        split = hor/2
+        split = cols/2
         for item in statemap:
             if item[1] < split:
                 toAdd1.append(item)
@@ -766,8 +785,8 @@ def splitIntoDistricts(statemap, distNum, dir, vert, hor):
         toAdd2 = []
         toAdd3 = []
         toAdd4 = []
-        splitVert = vert/2
-        splitHor = hor/2
+        splitVert = cols/2
+        splitHor = rows/2
         for item in statemap:
             if item[2] < splitVert and item[1] < splitHor:
                 toAdd1.append(item)
@@ -790,10 +809,10 @@ def splitIntoDistricts(statemap, distNum, dir, vert, hor):
         toAdd6 = []
         toAdd7 = []
         toAdd8 = []
-        splitVert1 = vert/4
+        splitVert1 = cols/4
         splitVert2 = splitVert1 * 2
         splitVert3 = splitVert1 * 3
-        splitHor = hor /2
+        splitHor = rows /2
         for item in statemap:
             if item[2] < splitVert1 and item[1] < splitHor:
                 toAdd1.append(item)
@@ -829,10 +848,10 @@ def splitIntoDistricts(statemap, distNum, dir, vert, hor):
         toAdd6 = []
         toAdd7 = []
         toAdd8 = []
-        splitHor1 = hor/4
+        splitHor1 = rows/4
         splitHor2 = splitHor1 * 2
         splitHor3 = splitHor1 * 3
-        splitVert = vert/2
+        splitVert = cols/2
         for item in statemap:
             if item[1] < splitHor1 and item[2] < splitVert:
                 toAdd1.append(item)
@@ -872,12 +891,12 @@ def splitIntoDistricts(statemap, distNum, dir, vert, hor):
         toAdd10 = []
         toAdd11 = []
         toAdd12 = []
-        splitVert1 = vert/6
+        splitVert1 = cols/6
         splitVert2 = splitVert1 * 2
         splitVert3 = splitVert1 * 3
         splitVert4 = splitVert1 * 4
         splitVert5 = splitVert1 * 5
-        splitHor = hor / 2
+        splitHor = rows / 2
         for item in statemap:
             if item[2] < splitVert1 and item[1] < splitHor:
                 toAdd1.append(item)
@@ -933,14 +952,14 @@ def splitIntoDistricts(statemap, distNum, dir, vert, hor):
         toAdd14 = []
         toAdd15 = []
         toAdd16 = []
-        splitVert1 = vert /8
+        splitVert1 = cols /8
         splitVert2 = splitVert1 * 2
         splitVert3 = splitVert1 * 3
         splitVert4 = splitVert1 * 4
         splitVert5 = splitVert1 * 5
         splitVert6 = splitVert1 * 6
         splitVert7 = splitVert1 * 7
-        splitHor = hor / 2
+        splitHor = rows / 2
         for item in statemap:
             if item[2] < splitVert1 and item[1] < splitHor:
                 toAdd1.append(item)
@@ -1016,12 +1035,12 @@ def splitIntoDistricts(statemap, distNum, dir, vert, hor):
         toAdd22 = []
         toAdd23 = []
         toAdd24 = []
-        splitVert1 = vert /6
+        splitVert1 = cols /6
         splitVert2 = splitVert1 * 2
         splitVert3 = splitVert1 * 3
         splitVert4 = splitVert1 * 4
         splitVert5 = splitVert1 * 5
-        splitHor1 = hor /4
+        splitHor1 = rows /4
         splitHor2 = splitHor1 * 2
         splitHor3 = splitHor1 * 3
         for item in statemap:
@@ -1100,37 +1119,45 @@ def splitIntoDistricts(statemap, distNum, dir, vert, hor):
 
     return districts
 
-def votingCalc(districts):
+"Generates voting results for a given map and state"
+
+def votingCalc(districts, state):
     percentages = []
     for i in range(len(districts)):
         total = 0
         for j in range(len(districts[i])):
             #  -- NC --
-            # if (districts[i][j][0] == 2): # urban
-            #     total += .58
-            # elif (districts[i][j][0] == 1): # suburban
-            #     total += .42
-            # else:                   # rural
-            #     total += .40
+            if state == "NC":
+                if (districts[i][j][0] == 2): # urban
+                    total += .58
+                elif (districts[i][j][0] == 1): # suburban
+                    total += .42
+                else:                   # rural
+                    total += .40
             #  -- Penn --
-            # if (districts[i][j][0] == 2): # urban
-            #     total += .65
-            # elif (districts[i][j][0] == 1): # suburban
-            #     total += .55
-            # else:                   # rural
-            #     total += .43
+            if state == "Penn":
+                if (districts[i][j][0] == 2): # urban
+                    total += .65
+                elif (districts[i][j][0] == 1): # suburban
+                    total += .55
+                else:                   # rural
+                    total += .43
             #  -- Illinois --
-            if (districts[i][j][0] == 2): # urban
-                total += .68
-            elif (districts[i][j][0] == 1): # suburban
-                total += .58
-            else:                   # rural
-                total += .40
+            if state == "Ill":
+                if (districts[i][j][0] == 2): # urban
+                    total += .68
+                elif (districts[i][j][0] == 1): # suburban
+                    total += .58
+                else:                   # rural
+                    total += .40
 
         percentage = total/len(districts[i])
         percentages.append(percentage)
 
     return percentages
+
+"Shifts every column in the torus over to the right by 1." \
+"The rightmost column becomes the leftmost column"
 
 def columnShift(districts, vert):
     max = vert
@@ -1142,6 +1169,9 @@ def columnShift(districts, vert):
                 item[2] = 0
     return districts
 
+"Shifts every row in the torus down by 1. The bottom row becomes" \
+"the new top row"
+
 def rowShift(districts, hor):
     max = hor
     for dist in districts:
@@ -1152,6 +1182,10 @@ def rowShift(districts, hor):
                 item[1] = 0
     return districts
 
+"Takes a list of list of districts (where each district is a " \
+"list of precincts) and converts them to a traditional" \
+"statemap: a single list of districts"
+
 def districtsToStateMap(districts):
     stmap = []
     for dist in districts:
@@ -1159,74 +1193,39 @@ def districtsToStateMap(districts):
             stmap.append(item)
     return stmap
 
-def simulate(statemap, distNum, dir, vert, hor):
+"Runs the simulation on the torus map. Returns a list of voting data" \
+"that boxplots can be generated from"
+
+def simulate(statemap, distNum, dir, cols, rows):
     data = []
-    districts = splitIntoDistricts(statemap, distNum, dir, vert, hor)
-    # rows = districts[-1][-1][1]
-    # columns = districts[-1][-1][2]
-    for i in range(16):
-        for j in range(24):
+    districts = splitIntoDistricts(statemap, distNum, dir, cols, rows)
+    for i in range(rows +1):
+        for j in range(cols + 1):  # cols is last column index
             perc = votingCalc(districts)
             perc = sorted(perc)
             for i in range(len(perc)):
                 data.append([perc[i], i + 1])
-            districts = columnShift(districts, vert)
+            districts = columnShift(districts, cols)
             # print("column shift")
             # print(districts)
             # print(len(districts))
             newstatemap = districtsToStateMap(districts)
             # print(newstatemap)
-            districts = splitIntoDistricts(newstatemap, distNum, dir, vert, hor)
+            districts = splitIntoDistricts(newstatemap, distNum, dir, cols, rows)
             # print("shuffle")
             # print(districts)
             # print(len(districts))
-        districts = rowShift(districts, hor)
+        districts = rowShift(districts, rows)
         newstatemap2 = districtsToStateMap(districts)
-        districts = splitIntoDistricts(newstatemap2, distNum, dir, vert, hor)
+        districts = splitIntoDistricts(newstatemap2, distNum, dir, cols, rows)
     return data
-
-
-
-
 
 
 if __name__ == '__main__':
     statemap = makeNCMap()
     # statemap = makePennMap()
     # statemap = makeIllMap()
-    print(statemap)
+    # print(statemap)
     data = simulate(statemap, 1, 1, 7, 23)
-    print(data)
-    districts = splitIntoDistricts(statemap, 1, 1, 23,15)
-    # print(len(districts[0]))
-    # print(len(districts[1]))
-    # print(len(districts[2]))
-    # print(len(districts[3]))
-    # print(len(districts[4]))
-    # print(len(districts[5]))
-    # print(len(districts[6]))
-    # print(len(districts[7]))
-    # print(len(districts[8]))
-    # print(len(districts[9]))
-    # print(len(districts[10]))
-    # print(len(districts[11]))
-    # print(len(districts[12]))
-    # print(len(districts[13]))
-    # print(len(districts[14]))
-    # print(len(districts[15]))
-    # print(len(districts[16]))
-    # print(len(districts[17]))
-    # print(len(districts[18]))
-    # print(len(districts[19]))
-    # print(len(districts[20]))
-    # print(len(districts[21]))
-    # print(len(districts[22]))
-    # print(len(districts[23]))
-    # percentages = votingCalc(districts)
-    # testlist = []
-    # for item in statemap:
-    #     testlist.append(item)
-    # biglist = []
-    # biglist.append(testlist)
-    # print(votingCalc(biglist)) # 1 district
-    # print (percentages) # n districts
+    # print(data)
+

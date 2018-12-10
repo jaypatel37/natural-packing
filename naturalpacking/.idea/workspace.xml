@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d9085f88-c842-4a77-a885-a6acef708fe3" name="Default" comment="" />
+    <list default="true" id="d9085f88-c842-4a77-a885-a6acef708fe3" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/naturalpacking.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/naturalpacking.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/boxPlotDrawer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/chartDrawer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/natPacking.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/natPacking.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/readEnsembleNCHR.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/readEnsembleNCHR.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/torusMap.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/torusMap.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -9,7 +18,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/naturalpacking$readEnsembleNCHR.coverage" NAME="readEnsembleNCHR Coverage Results" MODIFIED="1543335455313" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/naturalpacking$readEnsembleNCHR.coverage" NAME="readEnsembleNCHR Coverage Results" MODIFIED="1544448869163" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/naturalpacking$Random.coverage" NAME="Random Coverage Results" MODIFIED="1539883203348" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/naturalpacking$boxPlotDrawer.coverage" NAME="boxPlotDrawer Coverage Results" MODIFIED="1543341670910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/naturalpacking$torusMap.coverage" NAME="torusMap Coverage Results" MODIFIED="1543304534834" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
@@ -52,17 +61,37 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="1591088672">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="dummy" value="5" />
+          <entry key="py" value="3664" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="PLAIN_TEXT" value="5" />
+          <entry key="Python" value="3664" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/natPacking.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3060">
-              <caret line="204" column="24" selection-start-line="204" selection-start-column="24" selection-end-line="204" selection-end-column="24" />
+            <state relative-caret-position="30">
+              <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <marker date="1543339579040" expanded="true" signature="4041:4361" ph="..." />
+                <marker date="1544448302450" expanded="true" signature="4584:4936" ph="..." />
               </folding>
             </state>
           </provider>
@@ -71,12 +100,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/torusMap.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-850">
-              <caret line="1127" column="28" selection-start-line="1127" selection-start-column="28" selection-end-line="1127" selection-end-column="28" />
+            <state relative-caret-position="60">
+              <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
               <folding>
-                <element signature="e#0#13#0" expanded="true" />
-                <marker date="1543341576019" expanded="true" signature="12360:12574" ph="..." />
-                <marker date="1543341576019" expanded="true" signature="36787:36905" ph="..." />
+                <marker date="1544448098382" expanded="true" signature="12748:12962" ph="..." />
+                <marker date="1544448098382" expanded="true" signature="38339:38568" ph="..." />
               </folding>
             </state>
           </provider>
@@ -85,25 +113,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/readEnsembleNCHR.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="650">
-              <caret line="62" column="34" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="34" />
+            <state relative-caret-position="1050">
+              <caret line="70" column="61" selection-start-line="70" selection-start-column="61" selection-end-line="70" selection-end-column="61" />
               <folding>
-                <marker date="1543335454030" expanded="true" signature="52:61" ph="..." />
-                <marker date="1543335454030" expanded="true" signature="1032:1202" ph="..." />
+                <marker date="1544449203942" expanded="true" signature="305:314" ph="..." />
+                <marker date="1544449203942" expanded="true" signature="1438:2002" ph="..." />
+                <marker date="1544449203942" expanded="true" signature="1891:2002" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/boxPlotDrawer.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/chartDrawer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="585">
-              <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
+            <state relative-caret-position="358">
+              <caret line="44" column="4" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
-                <marker date="1543341668699" expanded="true" signature="445:459" ph="..." />
-                <marker date="1543341668699" expanded="true" signature="666:881" ph="..." />
+                <marker date="1544449456153" expanded="true" signature="568:582" ph="..." />
+                <marker date="1544449456153" expanded="true" signature="836:1051" ph="..." />
               </folding>
             </state>
           </provider>
@@ -118,15 +147,24 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>info</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Random.py" />
         <option value="$PROJECT_DIR$/src/Random.py" />
-        <option value="$PROJECT_DIR$/src/readEnsembleNCHR.py" />
-        <option value="$PROJECT_DIR$/src/natPacking.py" />
-        <option value="$PROJECT_DIR$/src/torusMap.py" />
         <option value="$PROJECT_DIR$/src/boxPlotDrawer.py" />
+        <option value="$PROJECT_DIR$/src/torusMap.py" />
+        <option value="$PROJECT_DIR$/src/natPacking.py" />
+        <option value="$PROJECT_DIR$/src/readEnsembleNCHR.py" />
+        <option value="$PROJECT_DIR$/src/chartDrawer.py" />
       </list>
     </option>
   </component>
@@ -141,12 +179,12 @@
     <option name="width" value="1680" />
     <option name="height" value="957" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -179,6 +217,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -199,7 +238,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.boxPlotDrawer">
+  <component name="RunManager" selected="Python.readEnsembleNCHR">
     <configuration name="Random" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="naturalpacking" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -235,7 +274,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/boxPlotDrawer.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/chartDrawer.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -319,9 +358,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.readEnsembleNCHR" />
         <item itemvalue="Python.boxPlotDrawer" />
         <item itemvalue="Python.natPacking" />
-        <item itemvalue="Python.readEnsembleNCHR" />
         <item itemvalue="Python.torusMap" />
         <item itemvalue="Python.Random" />
       </list>
@@ -342,13 +381,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="957" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2899878" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16666667" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993895" weight="0.33757225" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993895" visible="true" weight="0.33757225" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -362,7 +402,7 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info active="true" anchor="right" id="SciView" order="3" visible="true" weight="0.32967034" />
+      <window_info anchor="right" id="SciView" order="3" visible="true" weight="0.24358974" />
       <window_info anchor="right" id="Database" order="4" />
     </layout>
   </component>
@@ -377,48 +417,48 @@
     <entry file="file://$PROJECT_DIR$/Random.py" />
     <entry file="file://$PROJECT_DIR$/src/Random.py" />
     <entry file="file://$PROJECT_DIR$/src/Untitled.ipynb" />
-    <entry file="file://$PROJECT_DIR$/src/torusMap.py">
+    <entry file="file://$PROJECT_DIR$/src/natPacking.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-850">
-          <caret line="1127" column="28" selection-start-line="1127" selection-start-column="28" selection-end-line="1127" selection-end-column="28" />
+        <state relative-caret-position="30">
+          <caret line="2" column="23" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <marker date="1543341576019" expanded="true" signature="12360:12574" ph="..." />
-            <marker date="1543341576019" expanded="true" signature="36787:36905" ph="..." />
+            <marker date="1544448302450" expanded="true" signature="4584:4936" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/torusMap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
+          <folding>
+            <marker date="1544448098382" expanded="true" signature="12748:12962" ph="..." />
+            <marker date="1544448098382" expanded="true" signature="38339:38568" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/readEnsembleNCHR.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
-          <caret line="62" column="34" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="34" />
+        <state relative-caret-position="1050">
+          <caret line="70" column="61" selection-start-line="70" selection-start-column="61" selection-end-line="70" selection-end-column="61" />
           <folding>
-            <marker date="1543335454030" expanded="true" signature="52:61" ph="..." />
-            <marker date="1543335454030" expanded="true" signature="1032:1202" ph="..." />
+            <marker date="1544449203942" expanded="true" signature="305:314" ph="..." />
+            <marker date="1544449203942" expanded="true" signature="1438:2002" ph="..." />
+            <marker date="1544449203942" expanded="true" signature="1891:2002" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/boxPlotDrawer.py">
+    <entry file="file://$PROJECT_DIR$/src/chartDrawer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="39" column="28" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
+        <state relative-caret-position="358">
+          <caret line="44" column="4" selection-start-line="44" selection-start-column="4" selection-end-line="44" selection-end-column="4" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
-            <marker date="1543341668699" expanded="true" signature="445:459" ph="..." />
-            <marker date="1543341668699" expanded="true" signature="666:881" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/natPacking.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3060">
-          <caret line="204" column="24" selection-start-line="204" selection-start-column="24" selection-end-line="204" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <marker date="1543339579040" expanded="true" signature="4041:4361" ph="..." />
+            <marker date="1544449456153" expanded="true" signature="568:582" ph="..." />
+            <marker date="1544449456153" expanded="true" signature="836:1051" ph="..." />
           </folding>
         </state>
       </provider>

@@ -1,4 +1,10 @@
+"Used to create a bar graph showing distribution of maps in NC HR ensemble"
 
+__author__ = "Jay Patel"
+
+"Reads in NC HR ensemble data, returns the average" \
+"Dem. vote % for each district and the counts of how" \
+"many maps had X amount of Dem. seats" \
 
 def read(filename):
         d = {}
@@ -25,10 +31,13 @@ def read(filename):
         for i in range(1, 14):
             d[i] = d[i] / 24000
         info = d.items()
+        info = [[t[0], t[1]] for t in info]
         info2 = d2.items()
         info2 = [[t[0],t[1]] for t in info2]
 
         return (info, info2)
+
+"Would be used to organize data to create a normal graph from"
 
 def createList(counts):
     ans = []
@@ -39,6 +48,8 @@ def createList(counts):
             ans.append(num)
     return ans
 
+"Organizes data to create a bar graph from"
+
 def organizeForBarGraph(counts):
     for item in counts:
         num = item[0]
@@ -48,20 +59,25 @@ def organizeForBarGraph(counts):
         item[1] = num
     return counts
 
-if __name__ == '__main__':
-    (avgs, counts) = read("../data/MCMCElectionMargins_ALLNEW_USHOUSEOFREPRESENTATIVES_16_Sorted")
-    print (avgs)
-    info = [[t[0], t[1]] for t in avgs]
+"Calculates overall average Dem. vote in ensemble"
+
+def averageDemvVote(avgs):
     demvote = 0
     for item in avgs:
         demvote += item[1]
-    demvote = demvote /13
-    print (demvote)
-    print (counts)
+    demvote = demvote / 13
+    return demvote
+
+"Calculates average number of seats Democrats win in ensemble"
+
+def averageDemSeats(counts):
     sum = 0
     for thing in counts:
         sum += thing[0] * thing[1]
-    sum = sum /24000
-    print(sum)
-    ansList = createList(counts)
-    print (ansList)
+    sum = sum / 24000
+    return sum
+
+if __name__ == '__main__':
+    (avgs, counts) = read("../data/MCMCElectionMargins_ALLNEW_USHOUSEOFREPRESENTATIVES_16_Sorted")
+    print (avgs)
+    print (counts)

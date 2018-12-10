@@ -1,7 +1,16 @@
+"Various starting functions"
+
+__author__ = "Jay Patel"
+
 import random
 import math
 import numpy as np
 from src import torusMap
+
+"Very first map generator, creates a map with dist number of " \
+"districts with prec number of precincts in each one. Each precinct" \
+"is marked as urban, rural, or suburban based on real life NC " \
+"proportions"
 
 def setUp(dist, prec):
     statemap = [[0 for x in range(prec)] for x in range(dist)]
@@ -16,6 +25,8 @@ def setUp(dist, prec):
                 statemap[i][j] = 0 #mark as rural
     return statemap
 
+"Basic city dropping algorithm, drops a 3x3 city at a random location" \
+"within a district"
 
 def droppingCities(districts, precincts, cities):
     statemap =[[0 for x in range(precincts)]for x in range(districts)]
@@ -24,7 +35,6 @@ def droppingCities(districts, precincts, cities):
         num = random.randrange(districts)
         while added[num] == 2:
             num = random.randrange(districts)
-        #print("num= ", num)
         added[num] = 2
         distn = statemap[num] # distn is the district we are adding the city to
         n = math.sqrt(len(distn))
@@ -45,9 +55,11 @@ def droppingCities(districts, precincts, cities):
         distn[num2 + (n + 1)] = 2
     return statemap
 
-
+"Upgraded city dropping algorithm that drops cities of size " \
+"size by size, this includes a suburban area wrapping around the" \
+"main city"
 # precincts is TOTAL number of precincts
-# size is total met area (urban and suburban)
+# size is total metropolitan area (urban and suburban)
 # rings is how many suburban rings should go around city
 def droppingCities2(precincts, cities, size, rings, precmap, avoid):
     n = math.sqrt(precincts)
@@ -116,6 +128,8 @@ def droppingCities2(precincts, cities, size, rings, precmap, avoid):
 
     return (precmap,avoid)
 
+"Cuts up a single array of precincts into districts"
+
 def districtMaker(precmap, districts, precincts):
     statemap = [[0 for x in range(precincts)] for x in range(districts)]
     start = 0
@@ -126,6 +140,8 @@ def districtMaker(precmap, districts, precincts):
             statemap[i] = precmap[start:start + precincts]
             start += precincts
     return statemap;
+
+"Generates packed maps for NC"
 
 def packing(districts, precincts):
     statemap = [[0 for x in range(precincts)] for x in range(districts)]
@@ -147,6 +163,8 @@ def packing(districts, precincts):
                 statemap[i][j] = 0  # mark as rural
     return statemap
 
+"Shuffles a given statemap, typically a packed map"
+
 def unpacking(packed):
     statemap = [[0 for x in range(len(packed[0]))] for x in range(len(packed))]
     unpack = packed[0]
@@ -157,6 +175,8 @@ def unpacking(packed):
     statemap = [unpack[x:x + 100] for x in range(0, len(unpack), 100)]
     # print(statemap)
     return statemap
+
+"Shuffles a torus map"
 
 def unpackingTorus(torus, dist):
     unpack2 = []
@@ -169,39 +189,48 @@ def unpackingTorus(torus, dist):
     statemap = [unpack2[x:x + precnum] for x in range(0, len(unpack2), precnum)]
     return statemap
 
-def voting(map):
+"Generates voting results for a given map and state"
+
+def voting(map, state):
     percentages = []
     for i in range(len(map)):
         total = 0
         for j in range(len(map[i])):
             # --NC--
-            # if (map[i][j] == 2): # urban
-            #     total += .58
-            # elif (map[i][j] == 1): # suburban
-            #     total += .42
-            # else:                   # rural
-            #     total += .4
+            if state == "NC":
+                if (map[i][j] == 2): # urban
+                    total += .58
+                elif (map[i][j] == 1): # suburban
+                    total += .42
+                else:                   # rural
+                    total += .4
             # --Penn--
-            if (map[i][j] == 2): # urban
-                total += .65
-            elif (map[i][j] == 1): # suburban
-                total += .55
-            else:                   # rural
-                total += .43
+            if state == "Penn":
+                if (map[i][j] == 2): # urban
+                    total += .65
+                elif (map[i][j] == 1): # suburban
+                    total += .55
+                else:                   # rural
+                    total += .43
             #  --Illinois--
-            # if (map[i][j] == 2): # urban
-            #     total += .68
-            # elif (map[i][j] == 1): # suburban
-            #     total += .58
-            # else:                   # rural
-            #     total += .4
+            if state == "Ill":
+                if (map[i][j] == 2): # urban
+                    total += .68
+                elif (map[i][j] == 1): # suburban
+                    total += .58
+                else:                   # rural
+                    total += .4
 
         percentage = total/len(map[i])
         percentages.append(percentage)
 
     return percentages
 
-def output(data):
+"Fills a data list that can later be used to generate " \
+"various charts. Also prints any desired output"
+
+def output():
+    data = []
     for k in range(10000): # number of simulations we want to do
         # ans = packing(13, 100)
         # ans = unpacking(ans)
@@ -219,24 +248,16 @@ def output(data):
         #ans = droppingCities(13, 16, 6)
         # for i in range(len(ans)):
         #     print(ans[i])
-        perc = voting(ans)
+        perc = voting(ans, "Ill")
         perc = sorted(perc)
         for i in range(len(perc)):
             data.append([perc[i],i+1])
         #print(perc)
+    return data
 
 
 if __name__ == '__main__':
-    # ans = droppingCities(12, 16, 8)
-    data = []
-    output(data) # prints output and fills data
-        # party = [];
-        # for j in range(len(perc)):
-        #     if perc[j] > .5:
-        #         party.append("d")
-        #     else:
-        #         party.append("r")
-        #
-        # print(party)
-    #print(data)
+
+
+    data = output() # prints output and fills data
 
