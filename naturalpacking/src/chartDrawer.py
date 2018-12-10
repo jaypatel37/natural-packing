@@ -35,15 +35,12 @@ def barGraph(data):
 if __name__ == '__main__':
 
     data = natPacking.output()  # fills data
-    print (data)
-    # df = createBoxPlot(data
+    df = createBoxPlot(data)
 
     # (avgs, counts) = readEnsembleNCHR.read("../data/MCMCElectionMargins_ALLNEW_USHOUSEOFREPRESENTATIVES_16_Sorted")
     # ansList = readEnsembleNCHR.createList(counts)
     # createNormalGraph(ansList)
     # data = readEnsembleNCHR.organizeForBarGraph(counts)
-    # print (avgs)
-    # print (data)
     # barGraph(data)
 
     # statemap = torusMap.makeNCMap()

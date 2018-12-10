@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d9085f88-c842-4a77-a885-a6acef708fe3" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chartDrawer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/chartDrawer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/natPacking.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/natPacking.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/torusMap.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/torusMap.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,13 +64,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="5" />
-          <entry key="py" value="4118" />
+          <entry key="py" value="4120" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="5" />
-          <entry key="Python" value="4118" />
+          <entry key="Python" value="4120" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -93,8 +90,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/natPacking.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="213" column="14" lean-forward="true" selection-start-line="213" selection-end-line="214" />
+            <state relative-caret-position="194">
+              <caret line="220" column="26" selection-start-line="220" selection-start-column="26" selection-end-line="220" selection-end-column="26" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
                 <marker date="1544467146913" expanded="true" signature="4672:5024" ph="..." />
@@ -106,7 +103,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/torusMap.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="736">
+            <state relative-caret-position="18540">
               <caret line="1236" column="30" lean-forward="true" selection-start-line="1236" selection-start-column="30" selection-end-line="1236" selection-end-column="30" />
               <folding>
                 <marker date="1544480119566" expanded="true" signature="12920:13134" ph="..." />
@@ -133,12 +130,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/chartDrawer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="38" column="29" lean-forward="true" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
+            <state relative-caret-position="238">
+              <caret line="37" column="28" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="28" />
               <folding>
                 <element signature="e#104#123#0" expanded="true" />
-                <marker date="1544483080183" expanded="true" signature="568:582" ph="..." />
-                <marker date="1544483080183" expanded="true" signature="836:1051" ph="..." />
+                <marker date="1544484440137" expanded="true" signature="568:582" ph="..." />
+                <marker date="1544484440137" expanded="true" signature="836:1051" ph="..." />
               </folding>
             </state>
           </provider>
@@ -424,17 +421,6 @@
     <entry file="file://$PROJECT_DIR$/Random.py" />
     <entry file="file://$PROJECT_DIR$/src/Random.py" />
     <entry file="file://$PROJECT_DIR$/src/Untitled.ipynb" />
-    <entry file="file://$PROJECT_DIR$/src/torusMap.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="736">
-          <caret line="1236" column="30" lean-forward="true" selection-start-line="1236" selection-start-column="30" selection-end-line="1236" selection-end-column="30" />
-          <folding>
-            <marker date="1544480119566" expanded="true" signature="12920:13134" ph="..." />
-            <marker date="1544480119566" expanded="true" signature="38628:39204" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/readEnsembleNCHR.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="900">
@@ -447,10 +433,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/torusMap.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18540">
+          <caret line="1236" column="30" lean-forward="true" selection-start-line="1236" selection-start-column="30" selection-end-line="1236" selection-end-column="30" />
+          <folding>
+            <marker date="1544480119566" expanded="true" signature="12920:13134" ph="..." />
+            <marker date="1544480119566" expanded="true" signature="38628:39204" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/natPacking.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="213" column="14" lean-forward="true" selection-start-line="213" selection-end-line="214" />
+        <state relative-caret-position="194">
+          <caret line="220" column="26" selection-start-line="220" selection-start-column="26" selection-end-line="220" selection-end-column="26" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
             <marker date="1544467146913" expanded="true" signature="4672:5024" ph="..." />
@@ -460,12 +457,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/chartDrawer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="38" column="29" lean-forward="true" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
+        <state relative-caret-position="238">
+          <caret line="37" column="28" selection-start-line="37" selection-start-column="28" selection-end-line="37" selection-end-column="28" />
           <folding>
             <element signature="e#104#123#0" expanded="true" />
-            <marker date="1544483080183" expanded="true" signature="568:582" ph="..." />
-            <marker date="1544483080183" expanded="true" signature="836:1051" ph="..." />
+            <marker date="1544484440137" expanded="true" signature="568:582" ph="..." />
+            <marker date="1544484440137" expanded="true" signature="836:1051" ph="..." />
           </folding>
         </state>
       </provider>
