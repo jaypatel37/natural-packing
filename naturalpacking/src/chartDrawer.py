@@ -34,18 +34,21 @@ def barGraph(data):
 
 if __name__ == '__main__':
 
-    # data = natPacking.output()  # fills data
-    # df = createBoxPlot(data)
+    data = natPacking.output()  # fills data
+    print (data)
+    # df = createBoxPlot(data
 
     # (avgs, counts) = readEnsembleNCHR.read("../data/MCMCElectionMargins_ALLNEW_USHOUSEOFREPRESENTATIVES_16_Sorted")
     # ansList = readEnsembleNCHR.createList(counts)
     # createNormalGraph(ansList)
     # data = readEnsembleNCHR.organizeForBarGraph(counts)
+    # print (avgs)
+    # print (data)
     # barGraph(data)
 
     # statemap = torusMap.makeNCMap()
     # statemap = torusMap.makePennMap()
-    statemap = torusMap.makeIllMap()
-    data = torusMap.simulate(statemap, 24, 0, 7, 23)
-    df = createBoxPlot(data)
+    # statemap = torusMap.makeIllMap()
+    # data = torusMap.simulate(statemap, 24, 0, 7, 23)
+    # df = createBoxPlot(data)
     # print(df)                # left this here in case someone wants to see what the DataFrame looks like
