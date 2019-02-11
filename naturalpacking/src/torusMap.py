@@ -1219,7 +1219,7 @@ def simulate(statemap, distNum, dir, cols, rows):
     districts = splitIntoDistricts(statemap, distNum, dir, cols, rows)
     for i in range(rows +1):    # rows is last row index
         for j in range(cols + 1):  # cols is last column index
-            perc = votingCalc(districts)
+            perc = votingCalc(districts, "NC")
             perc = sorted(perc)
             for i in range(len(perc)):
                 data.append([perc[i], i + 1])
@@ -1237,6 +1237,6 @@ if __name__ == '__main__':
     # statemap = makePennMap()
     # statemap = makeIllMap()
     # print(statemap)
-    data = simulate(statemap, 2, 1, 15, 23)
-    # print(data)
+    data = simulate(statemap, 2, 1, 23, 15)
+    print(data)
 
