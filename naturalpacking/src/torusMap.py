@@ -757,7 +757,7 @@ def makeIllMap():
 "Splits a given torus map into a certain number of districts." \
 "For some numbers, the map can be split vertically or horizontally"
 # make dir 0 for vertical splits and 1 for horizontal splits
-def splitIntoDistricts(torusmap, distNum, dir, cols, rows):
+def splitIntoDistricts(torusmap, distNum, dir, maxColNum, maxRowNum):
     districts = []
     if distNum == 1:
         toAdd1 = []
@@ -767,7 +767,7 @@ def splitIntoDistricts(torusmap, distNum, dir, cols, rows):
     if distNum == 2 and dir == 0:
         toAdd1 = []
         toAdd2 = []
-        split = cols/2
+        split = maxColNum/2
         for item in torusmap:
             if item[2] < split:
                 toAdd1.append(item)
@@ -778,7 +778,7 @@ def splitIntoDistricts(torusmap, distNum, dir, cols, rows):
     if distNum == 2 and dir == 1:
         toAdd1 = []
         toAdd2 = []
-        split = cols/2
+        split = maxColNum/2
         for item in torusmap:
             if item[1] < split:
                 toAdd1.append(item)
@@ -791,8 +791,8 @@ def splitIntoDistricts(torusmap, distNum, dir, cols, rows):
         toAdd2 = []
         toAdd3 = []
         toAdd4 = []
-        splitVert = cols/2
-        splitHor = rows/2
+        splitVert = maxColNum/2
+        splitHor = maxRowNum/2
         for item in torusmap:
             if item[2] < splitVert and item[1] < splitHor:
                 toAdd1.append(item)
@@ -815,10 +815,10 @@ def splitIntoDistricts(torusmap, distNum, dir, cols, rows):
         toAdd6 = []
         toAdd7 = []
         toAdd8 = []
-        splitVert1 = cols/4
+        splitVert1 = maxColNum/4
         splitVert2 = splitVert1 * 2
         splitVert3 = splitVert1 * 3
-        splitHor = rows /2
+        splitHor = maxRowNum /2
         for item in torusmap:
             if item[2] < splitVert1 and item[1] < splitHor:
                 toAdd1.append(item)
@@ -854,10 +854,10 @@ def splitIntoDistricts(torusmap, distNum, dir, cols, rows):
         toAdd6 = []
         toAdd7 = []
         toAdd8 = []
-        splitHor1 = rows/4
+        splitHor1 = maxRowNum/4
         splitHor2 = splitHor1 * 2
         splitHor3 = splitHor1 * 3
-        splitVert = cols/2
+        splitVert = maxColNum/2
         for item in torusmap:
             if item[1] < splitHor1 and item[2] < splitVert:
                 toAdd1.append(item)
@@ -897,12 +897,12 @@ def splitIntoDistricts(torusmap, distNum, dir, cols, rows):
         toAdd10 = []
         toAdd11 = []
         toAdd12 = []
-        splitVert1 = cols/6
+        splitVert1 = maxColNum/6
         splitVert2 = splitVert1 * 2
         splitVert3 = splitVert1 * 3
         splitVert4 = splitVert1 * 4
         splitVert5 = splitVert1 * 5
-        splitHor = rows / 2
+        splitHor = maxRowNum / 2
         for item in torusmap:
             if item[2] < splitVert1 and item[1] < splitHor:
                 toAdd1.append(item)
@@ -958,14 +958,14 @@ def splitIntoDistricts(torusmap, distNum, dir, cols, rows):
         toAdd14 = []
         toAdd15 = []
         toAdd16 = []
-        splitVert1 = cols /8
+        splitVert1 = maxColNum /8
         splitVert2 = splitVert1 * 2
         splitVert3 = splitVert1 * 3
         splitVert4 = splitVert1 * 4
         splitVert5 = splitVert1 * 5
         splitVert6 = splitVert1 * 6
         splitVert7 = splitVert1 * 7
-        splitHor = rows / 2
+        splitHor = maxRowNum / 2
         for item in torusmap:
             if item[2] < splitVert1 and item[1] < splitHor:
                 toAdd1.append(item)
@@ -1041,12 +1041,12 @@ def splitIntoDistricts(torusmap, distNum, dir, cols, rows):
         toAdd22 = []
         toAdd23 = []
         toAdd24 = []
-        splitVert1 = cols /6
+        splitVert1 = maxColNum /6
         splitVert2 = splitVert1 * 2
         splitVert3 = splitVert1 * 3
         splitVert4 = splitVert1 * 4
         splitVert5 = splitVert1 * 5
-        splitHor1 = rows /4
+        splitHor1 = maxRowNum /4
         splitHor2 = splitHor1 * 2
         splitHor3 = splitHor1 * 3
         for item in torusmap:
@@ -1214,21 +1214,21 @@ def unpackingTorus(torus, dist):
 "Runs the simulation on the torus map. Returns a list of voting data" \
 "that boxplots can be generated from"
 
-def simulate(statemap, distNum, dir, cols, rows):
+def simulate(statemap, distNum, dir, maxColNum, maxRowNum, state):
     data = []
-    districts = splitIntoDistricts(statemap, distNum, dir, cols, rows)
-    for i in range(rows +1):    # rows is last row index
-        for j in range(cols + 1):  # cols is last column index
-            perc = votingCalc(districts, "NC")
-            perc = sorted(perc)
-            for i in range(len(perc)):
-                data.append([perc[i], i + 1])
-            districts = columnShift(districts, cols)
+    districts = splitIntoDistricts(statemap, distNum, dir, maxColNum, maxRowNum)
+    for i in range(maxRowNum +1):    # maxRowNum is last row index
+        for j in range(maxColNum + 1):  # maxColNum is last column index
+            votingPercentages = votingCalc(districts, state)
+            votingPercentages = sorted(votingPercentages)
+            for i in range(len(votingPercentages)):
+                data.append([votingPercentages[i], i + 1])
+            districts = columnShift(districts, maxColNum)
             newstatemap = districtsToStateMap(districts)
-            districts = splitIntoDistricts(newstatemap, distNum, dir, cols, rows)
-        districts = rowShift(districts, rows)
+            districts = splitIntoDistricts(newstatemap, distNum, dir, maxColNum, maxRowNum)
+        districts = rowShift(districts, maxRowNum)
         newstatemap2 = districtsToStateMap(districts)
-        districts = splitIntoDistricts(newstatemap2, distNum, dir, cols, rows)
+        districts = splitIntoDistricts(newstatemap2, distNum, dir, maxColNum, maxRowNum)
     return data
 
 
@@ -1236,7 +1236,7 @@ if __name__ == '__main__':
     statemap = makeNCMap()
     # statemap = makePennMap()
     # statemap = makeIllMap()
-    # print(statemap)
-    data = simulate(statemap, 2, 1, 23, 15)
+    print(statemap)
+    data = simulate(statemap, 2, 1, 23, 15, "NC")
     print(data)
 
