@@ -1,7 +1,7 @@
 '''
 Created on Jan 30, 2019
 
-@author: ellavanengen
+@author: ellavanengen, jaypatel
 '''
 import numpy as np
 import random

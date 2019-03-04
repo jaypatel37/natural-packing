@@ -116,8 +116,9 @@ def makeOneNodePlot(d, repVoting, repNum, precNum):
 
 
 def makeAveragePlot(d, repVoting, repNum, totalNum):
-    numRepsInStateAtLevel = [0 for i in range(1, 2693)]
-    weightedSumsAtLevel = [0 for i in range(1, 2693)]
+    numRepsInStateAtLevel = [0 for i in range(200)]
+    weightedSumsAtLevel = [0 for i in range(200)]
+    maxDist = 0 # temp until we get dist
     for k in range(1, 2693):
         queue = []
         visited = [False] * 2693
@@ -163,15 +164,19 @@ def makeAveragePlot(d, repVoting, repNum, totalNum):
             weightedsum = (reppop / poptotal) * repNum[k]
             weightedSumsAtLevel[i] += weightedsum
             numRepsInStateAtLevel[i] += repNum[k]
+            if dist > maxDist:
+                maxDist = dist
     # print (numrepsinstateatlevel)
     # print (weightedsumsofstate)
-    distances = [0 for b in range(88)]
-    for a in range(len(numRepsInStateAtLevel)):
-        if weightedSumsAtLevel[a] != 0:
-            distances[a] = a
-    weightedsumsofstate = weightedSumsAtLevel[:88]
-    # print(weightedsumsofstate)
-    # print(distances)
+
+    distances = []
+    for f in range(maxDist):
+        distances.append(f)
+    weightedsumsofstate = weightedSumsAtLevel[:maxDist]
+    for g in range(len(weightedsumsofstate)):
+        weightedsumsofstate[g] = weightedsumsofstate[g] / numRepsInStateAtLevel[g]
+    print(weightedsumsofstate)
+    print(distances)
     plt.plot(distances, weightedsumsofstate, color="red")
     plt.xlabel("Distance")
     plt.ylabel("Republican %")
@@ -230,9 +235,81 @@ def makeAveragePlotDem(d, repVoting, repNum, totalNum):
     weightedsumsofstate = weightedsumsofstate[:98]
     print(weightedsumsofstate)
     print(distances)
-    plt.plot(distances, weightedsumsofstate, color="blue")
+    fig, ax = plt.plot(distances, weightedsumsofstate, color="blue")
+    ax.hlines(0.5338738556976275, 0, 1)
+    plt.plot([0,1],[0.5338738556976275])
+    ax.axhline(0.5338738556976275, 0, 1)
+    # ax.axhline(0.6149895769827122, 0, 1)
     plt.xlabel("Distance")
     plt.ylabel("Democratic %")
+    plt.yticks(np.arange(0, 1.1, .25))
+    plt.show()
+
+def makeAveragePlotDem(d, repVoting, repNum, totalNum):
+    numDemsInStateAtLevel = [0 for i in range(200)]
+    weightedSumsAtLevel = [0 for i in range(200)]
+    maxDist = 0 # temp until we get dist
+    for k in range(1, 2693):
+        queue = []
+        visited = [False] * 2693
+        queue.append(k)
+        visited[k] = True
+        dist = 0
+        tupsList = []
+        nextLevel = []
+        while len(queue) != 0:
+            node = queue.pop(0)
+            # print (node, " ", dist)
+            tupsList.append((node, dist))
+            if len(queue) == 0:
+                dist += 1
+                for i in nextLevel:
+                    queue.append(i)
+                    nextLevel.remove(i)
+                if node not in d:
+                    continue
+                for j in d[node]:
+                    if visited[j] == False:
+                        queue.append(j)
+                        visited[j] = True
+            else:
+                for n in d[node]:
+                    if visited[n] == False:
+                        nextLevel.append(n)
+                        visited[n] = True
+
+        # distances = [0 for x in range(dist)]
+        # percentages = [0 for x in range(dist)]
+        # percentages[0] = repVoting[k]
+        # weightedsumsofstate[0] += repVoting[k] * repNum[k]
+        # numrepsinstateatlevel[0] += repNum[k]
+        for i in range(dist):
+            dempop = 0
+            poptotal = 0
+            for (item, distance) in tupsList:
+                if distance == i:
+                    # weightedsum += repVoting[item] * repNum[item]
+                    dempop += totalNum[item] - repNum[item]
+                    poptotal += totalNum[item]
+            weightedsum = (dempop / poptotal) * (totalNum[k] - repNum[k])
+            weightedSumsAtLevel[i] += weightedsum
+            numDemsInStateAtLevel[i] += totalNum[k] - repNum[k]
+            if dist > maxDist:
+                maxDist = dist
+    # print (numrepsinstateatlevel)
+    # print (weightedsumsofstate)
+
+    distances = []
+    for f in range(maxDist):
+        distances.append(f)
+    weightedsumsofstate = weightedSumsAtLevel[:maxDist]
+    for g in range(len(weightedsumsofstate)):
+        weightedsumsofstate[g] = weightedsumsofstate[g] / numDemsInStateAtLevel[g]
+    print(weightedsumsofstate)
+    print(distances)
+    plt.plot(distances, weightedsumsofstate, color="blue")
+    plt.xlabel("Distance")
+    plt.ylabel("Democrat %")
     plt.yticks(np.arange(0, 1.1, .25))
     plt.show()
 
@@ -241,6 +318,6 @@ if __name__ == '__main__':
     (repVoting, repNum, totalNum) = readVotingFile("../data/VTDLevel_USHOUSEOFREPRESENTATIVES_16.txt")
     # print (d)
     # print (repVoting)
-    makeOneNodePlot(d, repVoting,repNum ,334)
+    # makeOneNodePlot(d, repVoting,repNum ,334)
     # print (makeAveragePlot(d, repVoting))
-    # makeAveragePlot(d, repVoting, repNum, totalNum)
+    makeAveragePlot(d, repVoting, repNum, totalNum)
