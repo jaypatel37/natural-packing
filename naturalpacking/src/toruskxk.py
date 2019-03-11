@@ -44,6 +44,18 @@ def splitIntoDistricts(torusmap, distNum, maxColNum, maxRowNum):
             toAdd1.append(item)
         districts.append(toAdd1)
 
+    if distNum == 2:
+        toAdd1 = []
+        toAdd2 = []
+        split = maxColNum/2
+        for item in torusmap:
+            if item[2] < split:
+                toAdd1.append(item)
+            else:
+                toAdd2.append(item)
+        districts.append(toAdd1)
+        districts.append(toAdd2)
+
     if distNum == 4:
         toAdd1 = []
         toAdd2 = []
@@ -64,6 +76,102 @@ def splitIntoDistricts(torusmap, distNum, maxColNum, maxRowNum):
         districts.append(toAdd2)
         districts.append(toAdd3)
         districts.append(toAdd4)
+
+    if distNum == 8:
+        toAdd1 = []
+        toAdd2 = []
+        toAdd3 = []
+        toAdd4 = []
+        toAdd5 = []
+        toAdd6 = []
+        toAdd7 = []
+        toAdd8 = []
+        splitVert1 = maxColNum/4
+        splitVert2 = splitVert1 * 2
+        splitVert3 = splitVert1 * 3
+        splitHor = maxRowNum /2
+        for item in torusmap:
+            if item[2] < splitVert1 and item[1] < splitHor:
+                toAdd1.append(item)
+            elif item[2] < splitVert2 and item[1] < splitHor:
+                toAdd2.append(item)
+            elif item[2] < splitVert3 and item[1] < splitHor:
+                toAdd3.append(item)
+            elif item[2] > splitVert3 and item[1] < splitHor:
+                toAdd4.append(item)
+            elif item[2] < splitVert1 and item[1] > splitHor:
+                toAdd5.append(item)
+            elif item[2] < splitVert2 and item[1] > splitHor:
+                toAdd6.append(item)
+            elif item[2] < splitVert3 and item[1] > splitHor:
+                toAdd7.append(item)
+            elif item[2] > splitVert3 and item[1] > splitHor:
+                toAdd8.append(item)
+        districts.append(toAdd1)
+        districts.append(toAdd2)
+        districts.append(toAdd3)
+        districts.append(toAdd4)
+        districts.append(toAdd5)
+        districts.append(toAdd6)
+        districts.append(toAdd7)
+        districts.append(toAdd8)
+
+    if distNum == 12:
+        toAdd1 = []
+        toAdd2 = []
+        toAdd3 = []
+        toAdd4 = []
+        toAdd5 = []
+        toAdd6 = []
+        toAdd7 = []
+        toAdd8 = []
+        toAdd9 = []
+        toAdd10 = []
+        toAdd11 = []
+        toAdd12 = []
+        splitVert1 = maxColNum / 6
+        splitVert2 = splitVert1 * 2
+        splitVert3 = splitVert1 * 3
+        splitVert4 = splitVert1 * 4
+        splitVert5 = splitVert1 * 5
+        splitHor = maxRowNum / 2
+        for item in torusmap:
+            if item[2] < splitVert1 and item[1] < splitHor:
+                toAdd1.append(item)
+            elif item[2] < splitVert2 and item[1] < splitHor:
+                toAdd2.append(item)
+            elif item[2] < splitVert3 and item[1] < splitHor:
+                toAdd3.append(item)
+            elif item[2] < splitVert4 and item[1] < splitHor:
+                toAdd4.append(item)
+            elif item[2] < splitVert5 and item[1] < splitHor:
+                toAdd5.append(item)
+            elif item[2] > splitVert5 and item[1] < splitHor:
+                toAdd6.append(item)
+            elif item[2] < splitVert1 and item[1] > splitHor:
+                toAdd7.append(item)
+            elif item[2] < splitVert2 and item[1] > splitHor:
+                toAdd8.append(item)
+            elif item[2] < splitVert3 and item[1] > splitHor:
+                toAdd9.append(item)
+            elif item[2] < splitVert4 and item[1] > splitHor:
+                toAdd10.append(item)
+            elif item[2] < splitVert5 and item[1] > splitHor:
+                toAdd11.append(item)
+            elif item[2] > splitVert5 and item[1] > splitHor:
+                toAdd12.append(item)
+        districts.append(toAdd1)
+        districts.append(toAdd2)
+        districts.append(toAdd3)
+        districts.append(toAdd4)
+        districts.append(toAdd5)
+        districts.append(toAdd6)
+        districts.append(toAdd7)
+        districts.append(toAdd8)
+        districts.append(toAdd9)
+        districts.append(toAdd10)
+        districts.append(toAdd11)
+        districts.append(toAdd12)
 
     if distNum == 16:
         toAdd1 = []
@@ -224,9 +332,34 @@ def simulateKbyK(statemap, distNum, maxColNum, maxRowNum):
         districts = splitIntoDistricts(newstatemap2, distNum, maxColNum, maxRowNum)
     return data
 
+def averageSeatShare(data, numdistricts):
+    seatShare = []
+    demcount = 0
+    for i in range(len(data)):
+        if data[i][0] > 0.5:
+            demcount += 1
+        # if data[i][0] == .5:
+        #     demcount += .5
+        if data[i][1] % numdistricts == 0:
+            seatShare.append(demcount)
+            demcount = 0
+
+    return (sum(seatShare) / len(seatShare)) / numdistricts
+
+def heatmapDataSimulation():
+    heatdata = []
+    kvalues = [1,2,4,8,16]
+    nvalues = [1,2,4,8,16]
+    for k in kvalues:
+        for n in nvalues:
+            statemap = makeKbyKMap(k, 16, 256)
+            exp = (int(math.log(n,2)) + 8) / 2
+            # lastindex = int((2 ** exp) - 1)
+            print(k, n, 63)
+            data = simulateKbyK(statemap, n, 63, 63)
+            perc = averageSeatShare(data, n)
+            heatdata.append([k,n,perc])
+    return heatdata
 
 if __name__ == '__main__':
-    statemap=makeKbyKMap(4, 16,256)
-    print(statemap)
-    data = simulateKbyK(statemap, 16, 63, 63)
-    print(data)
+    print (heatmapDataSimulation())
