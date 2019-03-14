@@ -17,6 +17,8 @@ def readEdgesFile(filename):
         split = line.split()
         node1 = int(split[0])
         node2 = int(split[1])
+        if node1 == -1:
+            continue
         if node1 not in d:
             connected = [node2]
             d[node1] = connected
@@ -25,22 +27,23 @@ def readEdgesFile(filename):
     return d
 
 def readVotingFile(filename):
-    repVoting = [.558 for i in range(6896)]
+    repVoting = [.435 for i in range(1849)]
     f = open(filename)
     voidCount = 0
-    repNum = [176 for i in range(6896)]
-    totalNum = [316 for i in range(6896)]
+    repNum = [308 for i in range(1849)]
+    totalNum = [709 for i in range(1849)]
     totalsum = 0
     repTotal = 0
     toweigh = 0
     # demTotal = 0
     for line in f:
         splitline = line.split()
+        if splitline[0] == "Precinct":
+            continue
         node = int(splitline[0])
         dem = int(splitline[1])
         rep = float(splitline[2])
-        ind = int(splitline[3])
-        total = dem + rep + ind
+        total = dem + rep
         if total == 0:
             voidCount += 1
             continue
@@ -52,10 +55,10 @@ def readVotingFile(filename):
         repTotal += rep
         toweigh += repPerc * rep
     #     demTotal += dem
-    popAvg = float(totalsum) / (6895 - voidCount)
+    popAvg = float(totalsum) / (1849 - voidCount)
     repAvg = repTotal / totalsum
     weighted = toweigh / repTotal
-    # demAvg = demTotal / 2691
+    # demAvg = demTotal / 1849
     print ("Rep. Statewide Avg.: ", repAvg)
     print("Rep. Weighted Avg.: ", weighted)
     # print (demAvg)
@@ -67,7 +70,7 @@ def readVotingFile(filename):
 def makeOneNodePlot(d, repVoting, repNum, precNum):
     # JUST TRY ONE NODE GRAPH FOR NOW
     queue = []
-    visited = [False] * 6896
+    visited = [False] * 1849
     queue.append(precNum)
     visited[precNum] = True
     dist = 0
@@ -116,12 +119,12 @@ def makeOneNodePlot(d, repVoting, repNum, precNum):
 
 
 def makeAveragePlot(d, repNum, totalNum):
-    numRepsInStateAtLevel = [0 for i in range(600)]
-    weightedSumsAtLevel = [0 for i in range(600)]
+    numRepsInStateAtLevel = [0 for i in range(200)]
+    weightedSumsAtLevel = [0 for i in range(200)]
     maxDist = 0 # temp until we get dist
-    for k in range(1, 6896):
+    for k in range(1849):
         queue = []
-        visited = [False] * 6896
+        visited = [False] * 1849
         queue.append(k)
         visited[k] = True
         dist = 0
@@ -180,20 +183,20 @@ def makeAveragePlot(d, repNum, totalNum):
     plt.plot(distances, weightedsumsofstate, color="red")
     plt.xlabel("Distance")
     plt.ylabel("Republican %")
-    plt.title("WI Rings")
-    plt.xlim(0, 80)
-    plt.ylim(.42, .79)
-    plt.yticks(np.arange(.42, .8, .03))
+    plt.title("MD Rings")
+    plt.xlim(0, 60)
+    plt.ylim(.36, .73)
+    plt.yticks(np.arange(.36, .74, .03))
     # plt.yticks(np.arange(0, 1.1, .25))
     plt.show()
 
 def makeAveragePlotDem(d, repNum, totalNum):
-    numDemsInStateAtLevel = [0 for i in range(600)]
-    weightedSumsAtLevel = [0 for i in range(600)]
+    numDemsInStateAtLevel = [0 for i in range(200)]
+    weightedSumsAtLevel = [0 for i in range(200)]
     maxDist = 0 # temp until we get dist
-    for k in range(1, 6896):
+    for k in range(1849):
         queue = []
-        visited = [False] * 6896
+        visited = [False] * 1849
         queue.append(k)
         visited[k] = True
         dist = 0
@@ -257,20 +260,20 @@ def makeAveragePlotDem(d, repNum, totalNum):
     # ax.axhline(0.6149895769827122, 0, 1)
     plt.xlabel("Distance")
     plt.ylabel("Democrat %")
-    plt.title("WI Rings")
-    plt.xlim(0, 80)
-    plt.ylim(.42, .79)
-    plt.yticks(np.arange(.42, .8, .03))
+    plt.title("MD Rings")
+    plt.xlim(0, 60)
+    plt.ylim(.25, .68)
+    plt.yticks(np.arange(.25, .69, .03))
     # plt.yticks(np.arange(0, 1.1, .25))
     plt.show()
 
 def makeAveragePlotCircles(d, repNum, totalNum):
-    numRepsInStateAtLevel = [0 for i in range(600)]
-    weightedSumsAtLevel = [0 for i in range(600)]
+    numRepsInStateAtLevel = [0 for i in range(200)]
+    weightedSumsAtLevel = [0 for i in range(200)]
     maxDist = 0 # temp until we get dist
-    for k in range(1, 6896):
+    for k in range(1849):
         queue = []
-        visited = [False] * 6896
+        visited = [False] * 1849
         queue.append(k)
         visited[k] = True
         dist = 0
@@ -333,20 +336,20 @@ def makeAveragePlotCircles(d, repNum, totalNum):
     plt.plot(distances, weightedsumsofstate, color="red")
     plt.xlabel("Distance")
     plt.ylabel("Republican %")
-    plt.title("WI Circles")
+    plt.title("MD Circles")
     plt.xlim(0, 60)
-    plt.ylim(.39, .79)
-    plt.yticks(np.arange(.39, .8, .03))
+    plt.ylim(.39, .58)
+    plt.yticks(np.arange(.39, .59, .03))
     # plt.yticks(np.arange(0, 1.1, .25))
     plt.show()
 
 def makeAveragePlotDemCircles(d, repNum, totalNum):
-    numDemsInStateAtLevel = [0 for i in range(600)]
-    weightedSumsAtLevel = [0 for i in range(600)]
+    numDemsInStateAtLevel = [0 for i in range(200)]
+    weightedSumsAtLevel = [0 for i in range(200)]
     maxDist = 0 # temp until we get dist
-    for k in range(1, 6896):
+    for k in range(1849):
         queue = []
-        visited = [False] * 6896
+        visited = [False] * 1849
         queue.append(k)
         visited[k] = True
         dist = 0
@@ -414,17 +417,17 @@ def makeAveragePlotDemCircles(d, repNum, totalNum):
     # ax.axhline(0.6149895769827122, 0, 1)
     plt.xlabel("Distance")
     plt.ylabel("Democrat %")
-    plt.title("WI Circles")
+    plt.title("MD Circles")
     plt.xlim(0, 60)
-    plt.ylim(.39, .79)
-    plt.yticks(np.arange(.39, .8, .03))
+    plt.ylim(.50, .69)
+    plt.yticks(np.arange(.5, .7, .03))
     # plt.yticks(np.arange(0, 1.1, .25))
     plt.show()
 
 
 if __name__ == '__main__':
-    d = readEdgesFile("../data/NC_Edges_Lengths.txt")
-    (repVoting, repNum, totalNum) = readVotingFile("../data/WardsVOTESWSA14.txt")
+    d = readEdgesFile("../data/MDPrecinctBORDER_LENGTHS.txt")
+    (repVoting, repNum, totalNum) = readVotingFile("../data/MDPrecinctHOUSE14.txt")
     # print (d)
     # print (repVoting)
     # makeOneNodePlot(d, repVoting,repNum ,334)
