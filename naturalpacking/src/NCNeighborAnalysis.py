@@ -180,9 +180,11 @@ def makeAveragePlot(d, repVoting, repNum, totalNum):
     plt.plot(distances, weightedsumsofstate, color="red")
     plt.xlabel("Distance")
     plt.ylabel("Republican %")
+    plt.title("NC Rings")
     plt.xlim(0, 60)
     plt.ylim(.5, .65)
-    plt.yticks(np.arange(.5, .66, .03))
+    plt.yticks(np.arange(.5, .65, .03))
+    # plt.yticks(np.arange(0, 1.1, .25))
     plt.show()
 
 def makeAveragePlotDem(d, repVoting, repNum, totalNum):
@@ -255,9 +257,11 @@ def makeAveragePlotDem(d, repVoting, repNum, totalNum):
     # ax.axhline(0.6149895769827122, 0, 1)
     plt.xlabel("Distance")
     plt.ylabel("Democrat %")
+    plt.title("NC Rings")
     plt.xlim(0, 60)
     plt.ylim(.36, .57)
     plt.yticks(np.arange(.36, .58, .03))
+    # plt.yticks(np.arange(0, 1.1, .25))
     plt.show()
 
 def makeAveragePlotCircles(d, repVoting, repNum, totalNum):
@@ -329,9 +333,11 @@ def makeAveragePlotCircles(d, repVoting, repNum, totalNum):
     plt.plot(distances, weightedsumsofstate, color="red")
     plt.xlabel("Distance")
     plt.ylabel("Republican %")
+    plt.title("NC Circles")
     plt.xlim(0,60)
     plt.ylim(.5, .62)
     plt.yticks(np.arange(.5, .63, .03))
+    # plt.yticks(np.arange(0, 1.1, .25))
     plt.show()
 
 def makeAveragePlotDemCircles(d, repVoting, repNum, totalNum):
@@ -408,9 +414,11 @@ def makeAveragePlotDemCircles(d, repVoting, repNum, totalNum):
     # ax.axhline(0.6149895769827122, 0, 1)
     plt.xlabel("Distance")
     plt.ylabel("Democrat %")
+    plt.title("NC Circles")
     plt.xlim(0,60)
     plt.ylim(.45,.57)
     plt.yticks(np.arange(.45, .58, .03))
+    # plt.yticks(np.arange(0, 1.1, .25))
     plt.show()
 
 
@@ -421,4 +429,4 @@ if __name__ == '__main__':
     # print (repVoting)
     # makeOneNodePlot(d, repVoting,repNum ,334)
     # print (makeAveragePlot(d, repVoting))
-    makeAveragePlot(d, repVoting, repNum, totalNum)
+    makeAveragePlotDemCircles(d, repVoting, repNum, totalNum)

@@ -25,11 +25,11 @@ def readEdgesFile(filename):
     return d
 
 def readVotingFile(filename):
-    repVoting = [.558 for i in range(6896)]
+    repVoting = [0 for i in range(9254)]
     f = open(filename)
     voidCount = 0
-    repNum = [176 for i in range(6896)]
-    totalNum = [316 for i in range(6896)]
+    repNum = [0 for i in range(9254)]
+    totalNum = [0 for i in range(9254)]
     totalsum = 0
     repTotal = 0
     toweigh = 0
@@ -52,7 +52,7 @@ def readVotingFile(filename):
         repTotal += rep
         toweigh += repPerc * rep
     #     demTotal += dem
-    popAvg = float(totalsum) / (6895 - voidCount)
+    popAvg = float(totalsum) / (9253 - voidCount)
     repAvg = repTotal / totalsum
     weighted = toweigh / repTotal
     # demAvg = demTotal / 2691
@@ -67,7 +67,7 @@ def readVotingFile(filename):
 def makeOneNodePlot(d, repVoting, repNum, precNum):
     # JUST TRY ONE NODE GRAPH FOR NOW
     queue = []
-    visited = [False] * 6896
+    visited = [False] * 9254
     queue.append(precNum)
     visited[precNum] = True
     dist = 0
@@ -119,9 +119,9 @@ def makeAveragePlot(d, repNum, totalNum):
     numRepsInStateAtLevel = [0 for i in range(600)]
     weightedSumsAtLevel = [0 for i in range(600)]
     maxDist = 0 # temp until we get dist
-    for k in range(1, 6896):
+    for k in range(1, 9254):
         queue = []
-        visited = [False] * 6896
+        visited = [False] * 9254
         queue.append(k)
         visited[k] = True
         dist = 0
@@ -180,20 +180,20 @@ def makeAveragePlot(d, repNum, totalNum):
     plt.plot(distances, weightedsumsofstate, color="red")
     plt.xlabel("Distance")
     plt.ylabel("Republican %")
-    plt.title("WI Rings")
-    plt.xlim(0, 80)
-    plt.ylim(.42, .79)
-    plt.yticks(np.arange(.42, .8, .03))
-    # plt.yticks(np.arange(0, 1.1, .25))
+    plt.title("PA Rings")
+    # plt.xlim(0, 80)
+    # plt.ylim(.42, .79)
+    # plt.yticks(np.arange(.42, .8, .03))
+    plt.yticks(np.arange(0, 1.1, .25))
     plt.show()
 
 def makeAveragePlotDem(d, repNum, totalNum):
     numDemsInStateAtLevel = [0 for i in range(600)]
     weightedSumsAtLevel = [0 for i in range(600)]
     maxDist = 0 # temp until we get dist
-    for k in range(1, 6896):
+    for k in range(1, 9254):
         queue = []
-        visited = [False] * 6896
+        visited = [False] * 9254
         queue.append(k)
         visited[k] = True
         dist = 0
@@ -257,20 +257,20 @@ def makeAveragePlotDem(d, repNum, totalNum):
     # ax.axhline(0.6149895769827122, 0, 1)
     plt.xlabel("Distance")
     plt.ylabel("Democrat %")
-    plt.title("WI Rings")
-    plt.xlim(0, 80)
-    plt.ylim(.42, .79)
-    plt.yticks(np.arange(.42, .8, .03))
-    # plt.yticks(np.arange(0, 1.1, .25))
+    plt.title("PA Rings")
+    # plt.xlim(0, 80)
+    # plt.ylim(.42, .79)
+    # plt.yticks(np.arange(.42, .8, .03))
+    plt.yticks(np.arange(0, 1.1, .25))
     plt.show()
 
 def makeAveragePlotCircles(d, repNum, totalNum):
     numRepsInStateAtLevel = [0 for i in range(600)]
     weightedSumsAtLevel = [0 for i in range(600)]
     maxDist = 0 # temp until we get dist
-    for k in range(1, 6896):
+    for k in range(1, 9254):
         queue = []
-        visited = [False] * 6896
+        visited = [False] * 9254
         queue.append(k)
         visited[k] = True
         dist = 0
@@ -333,20 +333,20 @@ def makeAveragePlotCircles(d, repNum, totalNum):
     plt.plot(distances, weightedsumsofstate, color="red")
     plt.xlabel("Distance")
     plt.ylabel("Republican %")
-    plt.title("WI Circles")
-    plt.xlim(0, 60)
-    plt.ylim(.39, .79)
-    plt.yticks(np.arange(.39, .8, .03))
-    # plt.yticks(np.arange(0, 1.1, .25))
+    plt.title("PA Circles")
+    # plt.xlim(0, 60)
+    # plt.ylim(.39, .79)
+    # plt.yticks(np.arange(.39, .8, .03))
+    plt.yticks(np.arange(0, 1.1, .25))
     plt.show()
 
 def makeAveragePlotDemCircles(d, repNum, totalNum):
     numDemsInStateAtLevel = [0 for i in range(600)]
     weightedSumsAtLevel = [0 for i in range(600)]
     maxDist = 0 # temp until we get dist
-    for k in range(1, 6896):
+    for k in range(1, 9254):
         queue = []
-        visited = [False] * 6896
+        visited = [False] * 9254
         queue.append(k)
         visited[k] = True
         dist = 0
@@ -414,19 +414,19 @@ def makeAveragePlotDemCircles(d, repNum, totalNum):
     # ax.axhline(0.6149895769827122, 0, 1)
     plt.xlabel("Distance")
     plt.ylabel("Democrat %")
-    plt.title("WI Circles")
-    plt.xlim(0, 60)
-    plt.ylim(.39, .79)
-    plt.yticks(np.arange(.39, .8, .03))
-    # plt.yticks(np.arange(0, 1.1, .25))
+    plt.title("PA Circles")
+    # plt.xlim(0, 60)
+    # plt.ylim(.39, .79)
+    # plt.yticks(np.arange(.39, .8, .03))
+    plt.yticks(np.arange(0, 1.1, .25))
     plt.show()
 
 
 if __name__ == '__main__':
-    d = readEdgesFile("../data/NC_Edges_Lengths.txt")
+    d = readEdgesFile("../data/PA_BORDER_LENGTHS.txt")
     (repVoting, repNum, totalNum) = readVotingFile("../data/WardsVOTESWSA14.txt")
     # print (d)
     # print (repVoting)
     # makeOneNodePlot(d, repVoting,repNum ,334)
     # print (makeAveragePlot(d, repVoting))
-    makeAveragePlotDemCircles(d, repNum, totalNum)
+    # makeAveragePlot(d, repNum, totalNum)
