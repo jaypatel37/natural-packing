@@ -23,6 +23,13 @@ def createBoxPlot(data):
     plt.show()    # show the plot
     return df
 
+def createViolinPlot(data):
+    df = pd.DataFrame(data, columns=["Voting %", "From Maximum Rep. Vote to Maximum Dem. Vote"])  # construct the DataFrame
+    violin = sns.violinplot(x="From Maximum Rep. Vote to Maximum Dem. Vote", y="Voting %", data=df)  # create the violin plot
+    sns.set()
+    plt.show()  # show the plot
+    return df
+
 "Creates normal graphs"
 
 def createNormalGraph(data):
@@ -79,11 +86,14 @@ if __name__ == '__main__':
     # statemap = torusMap.makePennMap()
     # statemap = torusMap.makeIllMap()
     # statemap = toruskxk.makeKbyKMapSplitBlock(2, 16,16)
-    statemap = toruskxk.makeKbyKMap(2, 16, 16)
-    data = toruskxk.simulateKbyK(statemap, 16, 15, 15)
+    data =[]
+    for i in range(50):
+        statemap = toruskxk.makeKbyKMap(8, 16, 256)
+        tempdata = toruskxk.simulateKbyK(statemap, 16, 63, 63)
+        data.extend(tempdata)
     print (data)
     # bestFit(data)
     print (averageSeatShare(data, 16))
     # data = torusMap.simulate(statemap, 24, 0, 7, 23)
-    df = createBoxPlot(data)
+    df = createViolinPlot(data)
     # print(df)                # left this here in case someone wants to see what the DataFrame looks like
