@@ -1,4 +1,4 @@
-"Analyzes how similar neighbors in Wisconsin are to each other"
+"Analyzes how similar neighbors in Pennsylvania are to each other"
 
 __author__ = "Jay Patel"
 
@@ -17,6 +17,8 @@ def readEdgesFile(filename):
         split = line.split()
         node1 = int(split[0])
         node2 = int(split[1])
+        if node1 == -1 or node2 == -1:
+            continue
         if node1 not in d:
             connected = [node2]
             d[node1] = connected
@@ -25,22 +27,22 @@ def readEdgesFile(filename):
     return d
 
 def readVotingFile(filename):
-    repVoting = [0 for i in range(9254)]
+    repVoting = [.52732 for i in range(9254)]
     f = open(filename)
     voidCount = 0
-    repNum = [0 for i in range(9254)]
-    totalNum = [0 for i in range(9254)]
+    repNum = [320 for i in range(9254)]
+    totalNum = [608 for i in range(9254)]
     totalsum = 0
     repTotal = 0
     toweigh = 0
-    # demTotal = 0
+    demTotal = 0
+    toweighDem = 0
     for line in f:
         splitline = line.split()
         node = int(splitline[0])
         dem = int(splitline[1])
         rep = float(splitline[2])
-        ind = int(splitline[3])
-        total = dem + rep + ind
+        total = dem + rep
         if total == 0:
             voidCount += 1
             continue
@@ -50,14 +52,17 @@ def readVotingFile(filename):
         totalNum[node] = total
         totalsum += total
         repTotal += rep
+        demTotal += dem
         toweigh += repPerc * rep
-    #     demTotal += dem
+        toweighDem += (1 - repPerc) * dem
     popAvg = float(totalsum) / (9253 - voidCount)
     repAvg = repTotal / totalsum
     weighted = toweigh / repTotal
+    weightedDem = toweighDem / demTotal
     # demAvg = demTotal / 2691
     print ("Rep. Statewide Avg.: ", repAvg)
     print("Rep. Weighted Avg.: ", weighted)
+    print("Dem. Weighted Avg.: ", weightedDem)
     # print (demAvg)
     # print ("voidCount: ")
     # print (voidCount)
@@ -116,8 +121,8 @@ def makeOneNodePlot(d, repVoting, repNum, precNum):
 
 
 def makeAveragePlot(d, repNum, totalNum):
-    numRepsInStateAtLevel = [0 for i in range(600)]
-    weightedSumsAtLevel = [0 for i in range(600)]
+    numRepsInStateAtLevel = [0 for i in range(200)]
+    weightedSumsAtLevel = [0 for i in range(200)]
     maxDist = 0 # temp until we get dist
     for k in range(1, 9254):
         queue = []
@@ -153,6 +158,7 @@ def makeAveragePlot(d, repNum, totalNum):
         # percentages[0] = repVoting[k]
         # weightedsumsofstate[0] += repVoting[k] * repNum[k]
         # numrepsinstateatlevel[0] += repNum[k]
+        # print ("Dist: ", dist)
         for i in range(dist):
             reppop = 0
             poptotal = 0
@@ -424,9 +430,9 @@ def makeAveragePlotDemCircles(d, repNum, totalNum):
 
 if __name__ == '__main__':
     d = readEdgesFile("../data/PA_BORDER_LENGTHS.txt")
-    (repVoting, repNum, totalNum) = readVotingFile("../data/WardsVOTESWSA14.txt")
+    (repVoting, repNum, totalNum) = readVotingFile("../data/Penn_2016_STH.txt")
     # print (d)
     # print (repVoting)
     # makeOneNodePlot(d, repVoting,repNum ,334)
     # print (makeAveragePlot(d, repVoting))
-    # makeAveragePlot(d, repNum, totalNum)
+    makeAveragePlot(d, repNum, totalNum)

@@ -1,4 +1,4 @@
-"Analyzes how similar neighbors in Wisconsin are to each other"
+"Analyzes how similar neighbors in Maryland are to each other"
 
 __author__ = "Jay Patel"
 
