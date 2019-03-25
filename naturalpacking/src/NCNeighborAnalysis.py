@@ -33,7 +33,8 @@ def readVotingFile(filename):
     totalsum = 0
     repTotal = 0
     toweigh = 0
-    # demTotal = 0
+    demTotal = 0
+    toweighDem = 0
     for line in f:
         splitline = line.split()
         node = int(splitline[0])
@@ -50,14 +51,18 @@ def readVotingFile(filename):
         totalNum[node] = total
         totalsum += total
         repTotal += rep
+        demTotal += dem
         toweigh += repPerc * rep
+        toweighDem += (1 - repPerc) * dem
     #     demTotal += dem
     # popAvg = float(totalsum) / (2692 - voidCount)
     repAvg = repTotal / totalsum
     weighted = toweigh / repTotal
+    weightedDem = toweighDem / demTotal
     # demAvg = demTotal / 2691
-    print (repAvg)
-    print(weighted)
+    print("Rep. Statewide Avg.: ", repAvg)
+    print("Rep. Weighted Avg.: ", weighted)
+    print("Dem. Weighted Avg.: ", weightedDem)
     # print (demAvg)
     # print ("voidCount: ")
     # print (voidCount)
