@@ -71,6 +71,36 @@ def averageSeatShare(data, numdistricts):
 
     return (sum(seatShare) / len(seatShare)) / numdistricts
 
+def calcSlope(data,numdistricts):
+    mean=[[],[]]
+    demcount=0
+    if numdistricts== 1:
+        return 0
+    for i in range(len(data)):
+        if data[i][1]==1:
+            mean[0].append(data[i][0])
+        if data[i][1]==numdistricts:
+            mean[1].append(data[i][0])
+    mean1=sum(mean[0])/len(mean[0])
+    mean2=sum(mean[1])/len(mean[1])
+    slope=(mean2-mean1)/(numdistricts-1)
+    return slope
+
+def heatmapDataSimulation():
+    heatdata = []
+    kvalues = [1,2,4,8,16]
+    nvalues = [1,2,4,8,16]
+    for k in kvalues:
+        for n in nvalues:
+            statemap = toruskxk.makeKbyKMap(k, 16, 256)
+            exp = (int(math.log(n,2)) + 8) / 2
+            # lastindex = int((2 ** exp) - 1)
+            print(k, n, 63)
+            data = toruskxk.simulateKbyK(statemap, n, 63, 63)
+            perc = calcSlope(data, n)
+            heatdata.append([k,n,perc])
+    return heatdata
+
 if __name__ == '__main__':
 
     # data = natPacking.output()  # fills data
