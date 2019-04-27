@@ -3,13 +3,12 @@
 __author__ = "Jay Patel"
 
 import pandas as pd
+import math
 import numpy as np
 import seaborn as sns
 from src import natPacking
 from src import readEnsembleNCHR
 from src import torusMap
-from src import WINeighborAnalysis
-from src import NCNeighborAnalysis
 from sklearn import linear_model
 from src import toruskxk
 import matplotlib.pyplot as plt
@@ -43,12 +42,8 @@ def createNormalGraph(data):
 "Creates bar graphs"
 
 def barGraph(data):
-    # df = pd.DataFrame(data, columns=["% Precincts", "Rep. Vote %"])  # construct the DataFrame
-    # bar = sns.barplot(x="Rep. Vote %", y="% Precincts", data=df)
-    bar = sns.distplot(data, bins = 10)
-    # for label in bar.axes.xaxis.get_ticklabels()[::2]:
-    #     label.set_visible(False)
-    plt.title("NC")
+    df = pd.DataFrame(data, columns=["% of Maps in Ensemble", "Number of Dem. Seats"])  # construct the DataFrame
+    bar = sns.barplot(x="Number of Dem. Seats", y="% of Maps in Ensemble", data=df)
     plt.show()
 
 def bestFit(data):
@@ -77,6 +72,36 @@ def averageSeatShare(data, numdistricts):
 
     return (sum(seatShare) / len(seatShare)) / numdistricts
 
+def calcSlope(data,numdistricts):
+    mean=[[],[]]
+    demcount=0
+    if numdistricts== 1:
+        return 0
+    for i in range(len(data)):
+        if data[i][1]==1:
+            mean[0].append(data[i][0])
+        if data[i][1]==numdistricts:
+            mean[1].append(data[i][0])
+    mean1=sum(mean[0])/len(mean[0])
+    mean2=sum(mean[1])/len(mean[1])
+    slope=(mean2-mean1)/(numdistricts-1)
+    return slope
+
+def heatmapDataSimulation():
+    heatdata = []
+    kvalues = [1,2,4,8,16]
+    nvalues = [1,2,4,8,16]
+    for k in kvalues:
+        for n in nvalues:
+            statemap = toruskxk.makeKbyKMap(k, 16, 256)
+            exp = (int(math.log(n,2)) + 8) / 2
+            # lastindex = int((2 ** exp) - 1)
+            print(k, n, 63)
+            data = toruskxk.simulateKbyK(statemap, n, 63, 63)
+            perc = calcSlope(data, n)
+            heatdata.append([k,n,perc])
+    return heatdata
+
 if __name__ == '__main__':
 
     # data = natPacking.output()  # fills data
@@ -87,22 +112,19 @@ if __name__ == '__main__':
     # createNormalGraph(ansList)
     # data = readEnsembleNCHR.organizeForBarGraph(counts)
     # barGraph(data)
-    (repVoting, repNum, totalNum) = NCNeighborAnalysis.readVotingFile("../data/VTDLevel_USHOUSEOFREPRESENTATIVES_16.txt")
-    data = NCNeighborAnalysis.precVoteShare(repNum, totalNum)
-    print(data)
-    barGraph(data)
 
     # statemap = torusMap.makeNCMap()
     # statemap = torusMap.makePennMap()
     # statemap = torusMap.makeIllMap()
     # statemap = toruskxk.makeKbyKMapSplitBlock(2, 16,16)
-    # data =[]
-    # statemap = toruskxk.makeKbyKMap(8, 16, 256)
-    # tempdata = toruskxk.simulateKbyK(statemap, 16, 63, 63)
-    # data.extend(tempdata)
-    # print (data)
+    data =[]
+    for i in range(50):
+        statemap = toruskxk.makeKbyKMap(8, 16, 256)
+        tempdata = toruskxk.simulateKbyK(statemap, 16, 63, 63)
+        data.extend(tempdata)
+    print (data)
     # bestFit(data)
-    # print (averageSeatShare(data, 16))
+    print (averageSeatShare(data, 16))
     # data = torusMap.simulate(statemap, 24, 0, 7, 23)
-    # df = createViolinPlot(data)
+    df = createViolinPlot(data)
     # print(df)                # left this here in case someone wants to see what the DataFrame looks like
