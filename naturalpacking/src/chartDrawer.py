@@ -3,6 +3,7 @@
 __author__ = "Jay Patel"
 
 import pandas as pd
+import math
 import numpy as np
 import seaborn as sns
 from src import natPacking

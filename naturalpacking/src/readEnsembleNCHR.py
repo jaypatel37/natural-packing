@@ -81,3 +81,4 @@ if __name__ == '__main__':
     (avgs, counts) = read("../data/MCMCElectionMargins_ALLNEW_USHOUSEOFREPRESENTATIVES_16_Sorted")
     print (avgs)
     print (counts)
+    print (organizeForBarGraph(counts))

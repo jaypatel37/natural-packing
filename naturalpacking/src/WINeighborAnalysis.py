@@ -335,11 +335,13 @@ def makeAveragePlotCircles(d, repNum, totalNum):
         weightedsumsofstate[g] = weightedsumsofstate[g] / numRepsInStateAtLevel[g]
     print(weightedsumsofstate)
     print(distances)
+    distances2, weightedsumsofstate2 = makeAveragePlotDemCircles(d, repNum, totalNum)
     plt.plot(distances, weightedsumsofstate, color="red")
+    plt.plot(distances2, weightedsumsofstate2, color="blue")
     plt.xlabel("Distance")
-    plt.ylabel("Republican %")
+    plt.ylabel("% Chance of finding another person of the same party")
     plt.title("WI Circles")
-    plt.xlim(0, 60)
+    # plt.xlim(0, 60)
     plt.ylim(.39, .79)
     plt.yticks(np.arange(.39, .8, .03))
     # plt.yticks(np.arange(0, 1.1, .25))
@@ -411,21 +413,49 @@ def makeAveragePlotDemCircles(d, repNum, totalNum):
         weightedsumsofstate[g] = weightedsumsofstate[g] / numDemsInStateAtLevel[g]
     print(weightedsumsofstate)
     print(distances)
-    ax = plt.plot(distances, weightedsumsofstate, color="blue")
-    # print (ax)
-    # ax.hlines(0.5338738556976275, 0, 1)
-    # plt.plot([0,1],[0.5338738556976275])
-    # ax.axhline(0.5338738556976275, 0, 1)
-    # ax.axhline(0.6149895769827122, 0, 1)
-    plt.xlabel("Distance")
-    plt.ylabel("Democrat %")
-    plt.title("WI Circles")
-    plt.xlim(0, 60)
-    plt.ylim(.39, .79)
-    plt.yticks(np.arange(.39, .8, .03))
-    # plt.yticks(np.arange(0, 1.1, .25))
-    plt.show()
+    # ax = plt.plot(distances, weightedsumsofstate, color="blue")
+    # # print (ax)
+    # # ax.hlines(0.5338738556976275, 0, 1)
+    # # plt.plot([0,1],[0.5338738556976275])
+    # # ax.axhline(0.5338738556976275, 0, 1)
+    # # ax.axhline(0.6149895769827122, 0, 1)
+    # plt.xlabel("Distance")
+    # plt.ylabel("Democrat %")
+    # plt.title("WI Circles")
+    # # plt.xlim(0, 60)
+    # plt.ylim(.39, .79)
+    # plt.yticks(np.arange(.39, .8, .03))
+    # # plt.yticks(np.arange(0, 1.1, .25))
+    # plt.show()
+    return distances, weightedsumsofstate
 
+def precVoteShare(repNum, totalNum):
+    d = {}
+    votepercranges = [(0,.05),(.05, .10),(.10,.15),(.15,.20),(.20,.25),(.25,.30),(.30,.35),(.35,.40),(.40,.45),(.45,.50),(.50,.55),(.55,.60),(.60,.65),(.65,.70),(.70,.75),(.75,.80),(.80,.85),(.85,.90),(.9,.95),(.95,1)]
+    for pair in votepercranges:
+        d[pair] = 0
+    for i in range(1, 6896):
+        if totalNum == 0:
+            continue
+        repperc = repNum[i] / totalNum[i]
+        for (x,y) in votepercranges:
+            if repperc >= x and repperc < y:
+                d[(x,y)] += 1
+    tupList = d.items()
+    newList = [[t[1],t[0]] for t in tupList]
+    newList = [[t[0], t[1][1]] for t in newList]
+    for i in range(len(newList)):
+        newList[i][0] = newList[i][0] / 6895
+    return newList
+
+# def precVoteShare(repNum, totalNum):
+#     data = []
+#     for i in range(1, 6896):
+#         if totalNum == 0:
+#             continue
+#         repperc = repNum[i] / totalNum[i]
+#         data.append(repperc)
+#     return data
 
 if __name__ == '__main__':
     d = readEdgesFile("../data/NC_Edges_Lengths.txt")
@@ -434,4 +464,4 @@ if __name__ == '__main__':
     # print (repVoting)
     # makeOneNodePlot(d, repVoting,repNum ,334)
     # print (makeAveragePlot(d, repVoting))
-    makeAveragePlotDemCircles(d, repNum, totalNum)
+    makeAveragePlotCircles(d, repNum, totalNum)
