@@ -8,6 +8,8 @@ import seaborn as sns
 from src import natPacking
 from src import readEnsembleNCHR
 from src import torusMap
+from src import WINeighborAnalysis
+from src import NCNeighborAnalysis
 from sklearn import linear_model
 from src import toruskxk
 import matplotlib.pyplot as plt
@@ -41,8 +43,12 @@ def createNormalGraph(data):
 "Creates bar graphs"
 
 def barGraph(data):
-    df = pd.DataFrame(data, columns=["% of Maps in Ensemble", "Number of Dem. Seats"])  # construct the DataFrame
-    bar = sns.barplot(x="Number of Dem. Seats", y="% of Maps in Ensemble", data=df)
+    # df = pd.DataFrame(data, columns=["% Precincts", "Rep. Vote %"])  # construct the DataFrame
+    # bar = sns.barplot(x="Rep. Vote %", y="% Precincts", data=df)
+    bar = sns.distplot(data, bins = 10)
+    # for label in bar.axes.xaxis.get_ticklabels()[::2]:
+    #     label.set_visible(False)
+    plt.title("NC")
     plt.show()
 
 def bestFit(data):
@@ -81,19 +87,22 @@ if __name__ == '__main__':
     # createNormalGraph(ansList)
     # data = readEnsembleNCHR.organizeForBarGraph(counts)
     # barGraph(data)
+    (repVoting, repNum, totalNum) = NCNeighborAnalysis.readVotingFile("../data/VTDLevel_USHOUSEOFREPRESENTATIVES_16.txt")
+    data = NCNeighborAnalysis.precVoteShare(repNum, totalNum)
+    print(data)
+    barGraph(data)
 
     # statemap = torusMap.makeNCMap()
     # statemap = torusMap.makePennMap()
     # statemap = torusMap.makeIllMap()
     # statemap = toruskxk.makeKbyKMapSplitBlock(2, 16,16)
-    data =[]
-    for i in range(50):
-        statemap = toruskxk.makeKbyKMap(8, 16, 256)
-        tempdata = toruskxk.simulateKbyK(statemap, 16, 63, 63)
-        data.extend(tempdata)
-    print (data)
+    # data =[]
+    # statemap = toruskxk.makeKbyKMap(8, 16, 256)
+    # tempdata = toruskxk.simulateKbyK(statemap, 16, 63, 63)
+    # data.extend(tempdata)
+    # print (data)
     # bestFit(data)
-    print (averageSeatShare(data, 16))
+    # print (averageSeatShare(data, 16))
     # data = torusMap.simulate(statemap, 24, 0, 7, 23)
-    df = createViolinPlot(data)
+    # df = createViolinPlot(data)
     # print(df)                # left this here in case someone wants to see what the DataFrame looks like
