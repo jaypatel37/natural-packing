@@ -85,7 +85,7 @@ def createConnectedDict(statemap):
                 d[prec[3]].append(i[3])
     return d
 
-d
+
 
 def makeAveragePlotCircles(statemap, d):
     numPrecAtLevel = [0 for i in range(600)]
