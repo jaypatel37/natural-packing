@@ -2,13 +2,11 @@
 
 __author__ = "Jay Patel"
 
-"Reads in file containing which nodes are connected to" \
-"each other and organizes " \
-"data into a dictionary. Also reads a given voting results file" \
-"into a list "
-
 import matplotlib.pyplot as plt
 import numpy as np
+
+"Reads in file containing which nodes (VTD) are connected to" \
+"each other and organizeres data into a dictionary."
 
 def readEdgesFile(filename):
     d = {}
@@ -25,6 +23,9 @@ def readEdgesFile(filename):
         else:
             d[node1].append(node2)
     return d
+
+"Reads a given voting results file" \
+"into a list "
 
 def readVotingFile(filename):
     repVoting = [.52732 for i in range(9254)]
@@ -68,6 +69,8 @@ def readVotingFile(filename):
     print (voidCount)
     # print (popAvg)
     return (repVoting, repNum, totalNum)
+
+"Neighbor analysis done with only one node"
 
 def makeOneNodePlot(d, repVoting, repNum, precNum):
     # JUST TRY ONE NODE GRAPH FOR NOW
@@ -119,14 +122,18 @@ def makeOneNodePlot(d, repVoting, repNum, precNum):
     plt.yticks(np.arange(0, 1.1, .25))
     plt.show()
 
+"Neighbor analysis using rings. Probabilites of finding someone of the same party" \
+"that is exactly x precincts away are calculated and graphed"
 
-def makeAveragePlot(d, repNum, totalNum):
+def makeAveragePlotRings(d, repNum, totalNum):
     numRepsInStateAtLevel = [0 for i in range(200)]
     weightedSumsAtLevel = [0 for i in range(200)]
+    numDemsInStateAtLevel = [0 for i in range(200)]
+    weightedSumsAtLevelDem = [0 for i in range(200)]
     maxDist = 0 # temp until we get dist
-    for k in range(1, 9254):
+    for k in range(1, 6896):
         queue = []
-        visited = [False] * 9254
+        visited = [False] * 6896
         queue.append(k)
         visited[k] = True
         dist = 0
@@ -155,81 +162,19 @@ def makeAveragePlot(d, repNum, totalNum):
 
         for i in range(dist):
             reppop = 0
-            poptotal = 0
-            for (item, distance) in tupsList:
-                if distance == i:
-                    # weightedsum += repVoting[item] * repNum[item]
-                    reppop += repNum[item]
-                    poptotal += totalNum[item]
-            weightedsum = (reppop / poptotal) * repNum[k]
-            weightedSumsAtLevel[i] += weightedsum
-            numRepsInStateAtLevel[i] += repNum[k]
-            if dist > maxDist:
-                maxDist = dist
-    # print (numrepsinstateatlevel)
-    # print (weightedsumsofstate)
-
-    distances = []
-    for f in range(maxDist):
-        distances.append(f)
-    weightedsumsofstate = weightedSumsAtLevel[:maxDist]
-    for g in range(len(weightedsumsofstate)):
-        weightedsumsofstate[g] = weightedsumsofstate[g] / numRepsInStateAtLevel[g]
-    print(weightedsumsofstate)
-    print(distances)
-    plt.plot(distances, weightedsumsofstate, color="red")
-    plt.xlabel("Distance")
-    plt.ylabel("Republican %")
-    plt.title("PA Rings")
-    # plt.xlim(0, 80)
-    # plt.ylim(.42, .79)
-    # plt.yticks(np.arange(.42, .8, .03))
-    plt.yticks(np.arange(0, 1.1, .25))
-    plt.show()
-
-def makeAveragePlotDem(d, repNum, totalNum):
-    numDemsInStateAtLevel = [0 for i in range(600)]
-    weightedSumsAtLevel = [0 for i in range(600)]
-    maxDist = 0 # temp until we get dist
-    for k in range(1, 9254):
-        queue = []
-        visited = [False] * 9254
-        queue.append(k)
-        visited[k] = True
-        dist = 0
-        tupsList = []
-        nextLevel = []
-        while len(queue) != 0:
-            node = queue.pop(0)
-            # print (node, " ", dist)
-            tupsList.append((node, dist))
-            if len(queue) == 0:
-                dist += 1
-                for i in nextLevel:
-                    queue.append(i)
-                    nextLevel.remove(i)
-                if node not in d:
-                    continue
-                for j in d[node]:
-                    if visited[j] == False:
-                        queue.append(j)
-                        visited[j] = True
-            else:
-                for n in d[node]:
-                    if visited[n] == False:
-                        nextLevel.append(n)
-                        visited[n] = True
-
-        for i in range(dist):
             dempop = 0
             poptotal = 0
             for (item, distance) in tupsList:
                 if distance == i:
                     # weightedsum += repVoting[item] * repNum[item]
+                    reppop += repNum[item]
                     dempop += totalNum[item] - repNum[item]
                     poptotal += totalNum[item]
-            weightedsum = (dempop / poptotal) * (totalNum[k] - repNum[k])
+            weightedsum = (reppop / poptotal) * repNum[k]
+            weightedsumDem = (dempop / poptotal) * (totalNum[k] - repNum[k])
             weightedSumsAtLevel[i] += weightedsum
+            weightedSumsAtLevelDem[i] += weightedsumDem
+            numRepsInStateAtLevel[i] += repNum[k]
             numDemsInStateAtLevel[i] += totalNum[k] - repNum[k]
             if dist > maxDist:
                 maxDist = dist
@@ -240,13 +185,17 @@ def makeAveragePlotDem(d, repNum, totalNum):
     for f in range(maxDist):
         distances.append(f)
     weightedsumsofstate = weightedSumsAtLevel[:maxDist]
+    weightedsumsofstateDem = weightedSumsAtLevelDem[:maxDist]
     for g in range(len(weightedsumsofstate)):
-        weightedsumsofstate[g] = weightedsumsofstate[g] / numDemsInStateAtLevel[g]
+        weightedsumsofstate[g] = weightedsumsofstate[g] / numRepsInStateAtLevel[g]
+        weightedsumsofstateDem[g] = weightedsumsofstateDem[g] / numDemsInStateAtLevel[g]
     print(weightedsumsofstate)
+    print(weightedsumsofstateDem)
     print(distances)
-    plt.plot(distances, weightedsumsofstate, color="blue")
-    plt.xlabel("Distance")
-    plt.ylabel("Democrat %")
+    plt.plot(distances, weightedsumsofstate, color="red")
+    plt.plot(distances, weightedsumsofstateDem, color="blue")
+    plt.xlabel("Distance (VTD)")
+    plt.ylabel("Chance of finding another person of the same party %")
     plt.title("PA Rings")
     # plt.xlim(0, 80)
     # plt.ylim(.42, .79)
@@ -254,9 +203,14 @@ def makeAveragePlotDem(d, repNum, totalNum):
     plt.yticks(np.arange(0, 1.1, .25))
     plt.show()
 
+"Neighbor analysis using concentric circles. Probabilites of finding someone of the same party" \
+"that is withing x precincts away are calculated and graphed"
+
 def makeAveragePlotCircles(d, repNum, totalNum):
     numRepsInStateAtLevel = [0 for i in range(200)]
+    numDemsInStateAtLevel = [0 for i in range(200)]
     weightedSumsAtLevel = [0 for i in range(200)]
+    weightedSumsAtLevelDem = [0 for i in range(200)]
     maxDist = 0 # temp until we get dist
     for k in range(1, 9254):
         queue = []
@@ -288,103 +242,32 @@ def makeAveragePlotCircles(d, repNum, totalNum):
                         visited[n] = True
 
         madereppopdata = [0 for i in range(dist)]
+        madedempopdata = [0 for i in range(dist)]
         madepoptotaldata = [0 for i in range(dist)]
         for i in range(dist):
             reppop = 0
             poptotal = 0
+            dempop = 0
             for (item, distance) in tupsList:
                 if distance == i:
                     # weightedsum += repVoting[item] * repNum[item]
                     reppop += repNum[item]
                     poptotal += totalNum[item]
+                    dempop += totalNum[item] - repNum[item]
             madereppopdata[i] = reppop
+            madedempopdata[i] = dempop
             madepoptotaldata[i] = poptotal
 
             for j in range(i):
                 reppop += madereppopdata[j]
+                dempop += madedempopdata[j]
                 poptotal += madepoptotaldata[j]
 
             weightedsum = (reppop / poptotal) * repNum[k]
             weightedSumsAtLevel[i] += weightedsum
             numRepsInStateAtLevel[i] += repNum[k]
-            if dist > maxDist:
-                maxDist = dist
-    # print (numrepsinstateatlevel)
-    # print (weightedsumsofstate)
-
-    distances = []
-    for f in range(maxDist):
-        distances.append(f)
-    weightedsumsofstate = weightedSumsAtLevel[:maxDist]
-    for g in range(len(weightedsumsofstate)):
-        weightedsumsofstate[g] = weightedsumsofstate[g] / numRepsInStateAtLevel[g]
-    print(weightedsumsofstate)
-    print(distances)
-    distances2, weightedsumsofstate2 = makeAveragePlotDemCircles(d, repNum, totalNum)
-    plt.plot(distances, weightedsumsofstate, color="red")
-    plt.plot(distances2, weightedsumsofstate2, color="blue")
-    plt.xlabel("Distance (VTD)")
-    plt.ylabel("% Chance of finding another person of the same party")
-    plt.title("PA Neighbor Analysis")
-    plt.xlim(0, 120)
-    plt.ylim(.42, .60)
-    plt.yticks(np.arange(.42, .61, .03))
-    # plt.yticks(np.arange(0, 1.1, .25))
-    plt.show()
-    return distances, distances2, weightedsumsofstate, weightedsumsofstate2
-
-def makeAveragePlotDemCircles(d, repNum, totalNum):
-    numDemsInStateAtLevel = [0 for i in range(200)]
-    weightedSumsAtLevel = [0 for i in range(200)]
-    maxDist = 0 # temp until we get dist
-    for k in range(1, 9254):
-        queue = []
-        visited = [False] * 9254
-        queue.append(k)
-        visited[k] = True
-        dist = 0
-        tupsList = []
-        nextLevel = []
-        while len(queue) != 0:
-            node = queue.pop(0)
-            # print (node, " ", dist)
-            tupsList.append((node, dist))
-            if len(queue) == 0:
-                dist += 1
-                for i in nextLevel:
-                    queue.append(i)
-                    nextLevel.remove(i)
-                if node not in d:
-                    continue
-                for j in d[node]:
-                    if visited[j] == False:
-                        queue.append(j)
-                        visited[j] = True
-            else:
-                for n in d[node]:
-                    if visited[n] == False:
-                        nextLevel.append(n)
-                        visited[n] = True
-
-        madedempopdata = [0 for i in range(dist)]
-        madepoptotaldata = [0 for i in range(dist)]
-        for i in range(dist):
-            dempop = 0
-            poptotal = 0
-            for (item, distance) in tupsList:
-                if distance == i:
-                    # weightedsum += repVoting[item] * repNum[item]
-                    dempop += totalNum[item] - repNum[item]
-                    poptotal += totalNum[item]
-            madedempopdata[i] = dempop
-            madepoptotaldata[i] = poptotal
-
-            for j in range(i):
-                dempop += madedempopdata[j]
-                poptotal += madepoptotaldata[j]
-
-            weightedsum = (dempop / poptotal) * (totalNum[k] - repNum[k])
-            weightedSumsAtLevel[i] += weightedsum
+            weightedsumdem = (dempop / poptotal) * (totalNum[k] - repNum[k])
+            weightedSumsAtLevelDem[i] += weightedsumdem
             numDemsInStateAtLevel[i] += totalNum[k] - repNum[k]
             if dist > maxDist:
                 maxDist = dist
@@ -395,12 +278,24 @@ def makeAveragePlotDemCircles(d, repNum, totalNum):
     for f in range(maxDist):
         distances.append(f)
     weightedsumsofstate = weightedSumsAtLevel[:maxDist]
+    weightedsumsofstateDem = weightedSumsAtLevelDem[:maxDist]
     for g in range(len(weightedsumsofstate)):
-        weightedsumsofstate[g] = weightedsumsofstate[g] / numDemsInStateAtLevel[g]
+        weightedsumsofstate[g] = weightedsumsofstate[g] / numRepsInStateAtLevel[g]
+        weightedsumsofstateDem[g] = weightedsumsofstateDem[g] / numDemsInStateAtLevel[g]
     print(weightedsumsofstate)
+    print(weightedsumsofstateDem)
     print(distances)
-    return distances, weightedsumsofstate
-
+    plt.plot(distances, weightedsumsofstate, color="red")
+    plt.plot(distances, weightedsumsofstateDem, color="blue")
+    plt.xlabel("Distance (VTD)")
+    plt.ylabel("% Chance of finding another person of the same party")
+    plt.title("PA Neighbor Analysis")
+    plt.xlim(0, 120)
+    plt.ylim(.42, .60)
+    plt.yticks(np.arange(.42, .61, .03))
+    # plt.yticks(np.arange(0, 1.1, .25))
+    plt.show()
+    return distances, distances2, weightedsumsofstate, weightedsumsofstate2
 
 if __name__ == '__main__':
     # d = readEdgesFile("../data/PA_BORDER_LENGTHS.txt")
@@ -410,6 +305,10 @@ if __name__ == '__main__':
     # makeOneNodePlot(d, repVoting,repNum ,334)
     # print (makeAveragePlot(d, repVoting))
     # makeAveragePlotCircles(d, repNum, totalNum)
+
+    "After initially generating the results, they were stored here so that it was" \
+    "convenient to adjust the charts without having to regenerate the data"
+
     distances = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129]
     distances2 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129]
     weightedsumsofstate = [0.5875766390912411, 0.5851737081569355, 0.5836047062819741, 0.5816885957322441, 0.5797805202993235, 0.577889655519265, 0.5759876256985216, 0.5740586047789895, 0.5723503365578945, 0.5707997199618824, 0.5694449490828212, 0.5680722817918934, 0.5667558680789052, 0.5654657055150281, 0.5641602035481323, 0.5628928137300102, 0.5616834141269348, 0.5604406502087577, 0.5592555639683329, 0.5581261352805341, 0.5569993874375302, 0.555886263281429, 0.5547811425169002, 0.5537149569122763, 0.5527022979079702, 0.5517295072868739, 0.5508135052085897, 0.549965453281975, 0.5491603572364621, 0.5484054024790352, 0.5476828652598951, 0.5469978605321758, 0.5463759078357002, 0.5458008985012381, 0.5452581445231196, 0.5447587588237909, 0.5442843756598823, 0.5438424833840387, 0.5434001745805219, 0.5429574469940645, 0.5425043943812914, 0.5420419565087614, 0.5415752692216642, 0.5410944554492363, 0.5406102130530943, 0.5401232156948963, 0.5396551749738037, 0.5391814851588901, 0.5387057971954659, 0.5382385410590915, 0.5377613261746763, 0.5372751895396538, 0.5367848088257724, 0.5362795848569623, 0.535760566928217, 0.5352278978007403, 0.5346890700611128, 0.5341449958541472, 0.5335883215257622, 0.5330165653817603, 0.5324388658471414, 0.5318550489886413, 0.5312678236886805, 0.5306786466409076, 0.5300931227523387, 0.5295170150565213, 0.5289409511231418, 0.5283733436432551, 0.5279489899309462, 0.5276098585759479, 0.5273398244236696, 0.527138642919325, 0.5270630171308767, 0.5269389434451432, 0.5268885056799827, 0.526871337842297, 0.5268039273034633, 0.5266359896584104, 0.5264725533473408, 0.5263346885138996, 0.5262640084712688, 0.526122142405308, 0.5258681615069477, 0.5254912671117307, 0.5249661360521269, 0.5244969078137416, 0.5238894024986138, 0.5232833119484521, 0.522604695254589, 0.5217432242271345, 0.5210933835166017, 0.5203060493241474, 0.5193806860563507, 0.5185168176174474, 0.5177440522835457, 0.5168411414903272, 0.5160441781915789, 0.5152150528316951, 0.514378228370261, 0.5136376576267763, 0.5129512633023469, 0.512312474102979, 0.5117950889406766, 0.5112751554652181, 0.5107932386644771, 0.5103512790429447, 0.5099623807517419, 0.5096058069967117, 0.5092485172245745, 0.5089576213522171, 0.5086881021744616, 0.5084085856706063, 0.5082030534662761, 0.5080418755874758, 0.5079052862911462, 0.5077855751851783, 0.5076849308043746, 0.5076097061351444, 0.5075555100750823, 0.5075087630187447, 0.5074713623123042, 0.5074473316928618, 0.5074318187950928, 0.5074271674046322, 0.5074182499302986, 0.5074120783826778, 0.5074082778495799, 0.5074053118494256, 0.5074004219145702, 0.5074001532309232]

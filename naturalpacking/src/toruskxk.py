@@ -8,7 +8,10 @@ import random
 import math
 
 
-"[value, row, column]"
+"Creates the kxk map. In order to create the map with the correct indices, it is broken down" \
+"into many nested iterations"
+
+"Format of each entry is [value, row, column]"
 
 def makeKbyKMap(k, dist, precinctsPerDistrict):
     statemap = []
@@ -33,41 +36,6 @@ def makeKbyKMap(k, dist, precinctsPerDistrict):
                                 statemap.append([1, row, column])
     return statemap
 
-def makeKbyKMapSplitBlock(k, dist, precinctsPerDistrict):
-    statemap = []
-    precPerBlock = int(precinctsPerDistrict / (k**2))
-    repBlockRepNum = int(precPerBlock * .615)
-    repBlockDemNum = precPerBlock - repBlockRepNum
-    demBlockDemNum = int(precPerBlock * .615) * .559
-    demBlockRepNum = precPerBlock - demBlockDemNum
-    precPerSmallRow = int(math.sqrt(precPerBlock))
-    districtsqrt = int(math.sqrt(dist))
-    # print (districtsqrt)
-    # print (precPerBlock)
-    # print (precPerSmallRow)
-    for districtrow in range(districtsqrt):
-        for district in range(districtsqrt):
-            for bigrow in range (k):
-                for block in range(k):
-                    num = random.randrange(0, 100)
-                    repCount = 0
-                    for smallrow in range(precPerSmallRow):
-                        for precinct in range(precPerSmallRow):
-                            row = int((districtrow * precPerSmallRow * k) + (bigrow * precPerSmallRow) + smallrow)
-                            column = int((district * precPerSmallRow * k) + (block * precPerSmallRow) + precinct)
-                            if num < 54:                # repBlock
-                                if repCount < repBlockRepNum:
-                                    statemap.append([0, row, column])
-                                    repCount +=1
-                                else:
-                                    statemap.append([1, row, column])
-                            else:                       # demBlock
-                                if repCount < demBlockRepNum:
-                                    statemap.append([0, row, column])
-                                    repCount += 1
-                                else:
-                                    statemap.append([1, row, column])
-    return statemap
 
 "Splits a given torus map into a certain number of districts." \
 "For some numbers, the map can be split vertically or horizontally"
@@ -398,7 +366,7 @@ def heatmapDataSimulation():
     return heatdata
 
 if __name__ == '__main__':
-    statemap = makeKbyKMapSplitBlock(2, 4, 16)
+    statemap = makeKbyKMap(2, 4, 16)
 
     print (statemap)
     # print (heatmapDataSimulation())
