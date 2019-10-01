@@ -67,7 +67,9 @@ df=pd.DataFrame(newdata,columns=["Voting %", "District Number",'Type'])
 #df = pd.DataFrame({'1.5':data[0],'2.5':data[1],'3.5':data[2],'4.5':data[3],'5.5':data[4],'6.5':data[5],'7.5':data[6],'8.5':data[7],'9.5':data[8],'10.5':data[9],'11.5':data[10],'12.5':data[11],'13.5': data[12], '14.5':data[13],'15.5':data[14], '16.5':data[15]})
 statemap = toruskxk.makeKbyKMap(16, 16, 256)
 data1 = toruskxk.simulateKbyK(statemap, 16, 63, 63)
-df1=chartDrawer.createBoxPlot(data1)
+for i in range(len(data1)):
+	data1[i].append('torus')
+df1 = pd.DataFrame(data, columns=["Voting %", "District Number",'Type']) 
 df=pd.concat([df,df1])
 print(df)
 
