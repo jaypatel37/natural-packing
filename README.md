@@ -4,6 +4,7 @@ This is the work done by the Natural Packing subteam (Ella van Engen, Claire Wie
 Specifically, I performed K-nearest neighbor analysis and torus map simulations using Python and real world data for 4 states (NC, WI, PA, and MD) to find that Democrats and Republicans are asymmetrically clustered, but that Democrats are not significantly more clustered than Republicans contrary to what people may think due to cities being densely populated and often very liberal. 
 
 All of my code can be found in naturalpacking/src, and the technical reports linked here contain a detailed description that I wrote for all of our code. I wrote all of the code detailed in these documents besides the last 4 programs in Spring 2019: avgseats.py, Outcome.py, Pdf.py, and Slope.py. 
+
 Fall 2018: https://drive.google.com/file/d/1H7zh_mdpmCNs09rgEfywqgJvjN_7um_l/view?usp=sharing 
 Spring 2019: https://drive.google.com/file/d/1PRoVgOsH-gT6rjgsZixLheSz7aENj_xV/view?usp=sharing
 
